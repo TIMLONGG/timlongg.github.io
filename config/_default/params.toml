@@ -1,0 +1,87 @@
+# 主题参数：全部可选项见
+# https://github.com/CaiJimmy/hugo-theme-stack/blob/master/config/_default/params.toml
+
+# 首页 / 归档页展示哪些分区（content/post 目录）
+mainSections   = ["post"]
+rssFullContent = true
+favicon        = "img/favicon.png"
+
+# 排序：default（按日期）/ lastmod（按最后修改时间）
+SortBy = "default"
+
+[footer]
+    since      = 2026
+    customText = ""
+
+[dateFormat]
+    published   = "2006-01-02"
+    lastUpdated = "2006-01-02"
+
+[sidebar]
+    emoji    = "📚"
+    subtitle = "笔记 · 分享 · 记录"
+    avatar   = "img/avatar.png"
+
+[article]
+    # 标题前显示锚点链接，方便引用小节
+    headingAnchor = true
+    # 全局开启 KaTeX 公式渲染（单篇文章也可以用自己的 front matter math: false 覆盖）
+    math          = true
+    toc           = true
+    readingTime   = true
+
+    [article.list]
+        # 在首页/列表卡片上显示标签
+        showTags = true
+
+    [article.license]
+        enabled = false
+        default = "本文采用 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可协议"
+
+[widgets]
+    # 首页右侧栏
+    homepage = [
+        { type = "search" },
+        { type = "archives", params = { limit = 5 } },
+        { type = "categories", params = { limit = 20 } },
+        { type = "tag-cloud", params = { limit = 20 } },
+    ]
+    # 文章页右侧栏
+    page = [{ type = "toc" }]
+
+[colorScheme]
+    toggle  = true
+    default = "auto"
+
+# 图片处理：正文内的图片会自动生成 800/1600/2400 三种宽度
+[imageProcessing]
+    autoOrient = false
+
+    [imageProcessing.external]
+        timeout = "10s"
+
+    [imageProcessing.content]
+        widths  = [800, 1600, 2400]
+        enabled = true
+
+    [imageProcessing.thumbnail]
+        enabled = true
+
+# 评论：暂不开启。想用 Giscus（GitHub Discussions）就把 enabled 改成 true 并填下面的 repo/repoID
+[comments]
+    enabled  = false
+    provider = "giscus"
+
+    [comments.giscus]
+        repo             = "TIMLONGG/timlongg.github.io"
+        repoID           = ""
+        category         = "Announcements"
+        categoryID       = ""
+        mapping          = "pathname"
+        lightTheme       = "light"
+        darkTheme        = "dark_dimmed"
+        reactionsEnabled = 1
+        emitMetadata     = 0
+        inputPosition    = "top"
+        lang             = "zh-CN"
+        loading          = "lazy"

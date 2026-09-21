@@ -1,0 +1,28 @@
+# Markdown renderer configuration
+[goldmark.renderer]
+    unsafe = true
+
+[goldmark.extensions.passthrough]
+    enable = true
+
+    # LaTeX 公式支持：https://gohugo.io/content-management/mathematics/
+    # block  = 独立成行的公式；inline = 正文中的行内公式
+    # 注意 inline 里加了 ['$', '$']，这样可以直接写 $a^2+b^2=c^2$；
+    # 代价是正文里出现成对的美元符号（例如 "$5 到 $10"）会被当成公式，遇到时用 \$ 转义。
+    [goldmark.extensions.passthrough.delimiters]
+        block  = [['\[', '\]'], ['$$', '$$']]
+        inline = [['$', '$'], ['\(', '\)']]
+
+[tableOfContents]
+    endLevel   = 4
+    ordered    = true
+    startLevel = 2
+
+[highlight]
+    noClasses          = false
+    codeFences         = true
+    guessSyntax        = true
+    lineNoStart        = 1
+    lineNos            = true
+    lineNumbersInTable = true
+    tabWidth           = 4

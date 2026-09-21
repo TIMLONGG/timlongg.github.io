@@ -1,0 +1,103 @@
+# 简历数据：唯一数据源
+# 页面由 layouts/page/cv.html 渲染，改这里就够了（不用碰 HTML）
+# 结构：
+#   sections[].items[] -> title(必填) / subtitle / date / details(列表) / tags(列表) / link
+#   skills[].items[]   -> 技能标签
+#
+# ⚠️ 下面都是示例内容，请替换成你自己的信息。
+
+name: TIMLONGG
+title: 硕士研究生 · 计算机科学与技术
+summary: >-
+  研究方向为机器学习与数据挖掘。关注模型效率与可解释性，喜欢把推导和实验记录写成可复现的笔记。
+updated: 2026-09
+
+contact:
+  - text: timlongg@example.com
+    url: mailto:timlongg@example.com
+  - text: github.com/TIMLONGG
+    url: https://github.com/TIMLONGG
+  - text: 上海 · 中国
+  - text: 个人主页
+    url: https://timlongg.github.io/
+
+sections:
+  - title: 教育背景
+    items:
+      - title: 某某大学
+        subtitle: 计算机科学与技术 · 硕士（导师：某某教授）
+        date: 2024.09 – 至今
+        details:
+          - 研究方向：机器学习、数据挖掘，GPA 3.8/4.0（示例）
+          - 主修课程：高级机器学习、最优化方法、概率图模型
+      - title: 某某大学
+        subtitle: 计算机科学与技术 · 学士
+        date: 2020.09 – 2024.06
+        details:
+          - 毕业论文：《基于某某方法的某某问题研究》
+          - GPA 3.7/4.0，专业排名前 10%（示例）
+
+  - title: 科研与实习经历
+    items:
+      - title: 某某实验室 · 研究助理
+        subtitle: 负责某某模型的训练与评估流程
+        date: 2024.10 – 至今
+        details:
+          - 复现并改进了某某方法，在某某数据集上将指标从 82.1 提升到 85.6（示例）
+          - 搭建实验流水线（PyTorch + Hydra + Weights & Biases），支持一键复现
+      - title: 某某公司 · 算法实习生
+        subtitle: 推荐系统方向
+        date: 2023.07 – 2023.10
+        details:
+          - 参与召回模型的特征工程与离线评估，AUC 提升 0.8 个点（示例）
+
+  - title: 论文与成果
+    items:
+      - title: A Sample Paper Title for Demonstration
+        subtitle: 第一作者 · 某某会议（CCF-B，示例）
+        date: 2026
+        details:
+          - 提出了一种某某机制，在三个公开数据集上取得一致性提升
+        tags:
+          - 机器学习
+          - 第一作者
+      - title: 某某期刊论文（在投）
+        subtitle: 第二作者
+        date: 2026
+
+  - title: 项目经历
+    items:
+      - title: 个人博客与笔记系统
+        subtitle: Hugo + Stack，Markdown 写作，KaTeX 公式，GitHub Actions 自动部署
+        date: 2026
+        link: https://github.com/TIMLONGG/timlongg.github.io
+        details:
+          - 内容与主题解耦，支持分类、标签、全文搜索与 RSS
+
+  - title: 荣誉与奖励
+    items:
+      - title: 某某奖学金（一等奖）
+        date: 2025
+      - title: 某某竞赛 · 国家级二等奖
+        date: 2023
+
+skills:
+  - title: 编程语言
+    items:
+      - Python
+      - C++
+      - SQL
+      - LaTeX
+      - Bash
+  - title: 框架与工具
+    items:
+      - PyTorch
+      - NumPy / Pandas
+      - scikit-learn
+      - Git
+      - Docker
+      - Linux
+  - title: 语言
+    items:
+      - 中文（母语）
+      - 英语（CET-6，可读写英文文献）

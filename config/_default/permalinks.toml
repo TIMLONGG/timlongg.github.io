@@ -1,0 +1,5 @@
+# URL 约定：显式写死，换主题时保持一致，老链接就不会失效
+# 文章：https://timlongg.github.io/blog/2026/hello-stack/
+# 页面：https://timlongg.github.io/about/
+post = "/blog/:year/:slug/"
+page = "/:slug/"

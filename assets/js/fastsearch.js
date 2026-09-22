@@ -92,6 +92,7 @@ const createContext = (result) => {
     const end = Math.min(source.length, matchEnd + 1 + 108);
     const context = document.createElement('span');
     context.className = 'search-result-context';
+    context.setAttribute('aria-label', '正文匹配上下文');
 
     if (start > 0) context.appendChild(document.createTextNode('…'));
     const clippedIndices = match.indices

@@ -166,6 +166,7 @@ select {
 /* ---------- 3. 博客园式三栏布局：左侧个人信息栏 + 中间正文 + 右侧目录 ---------- */
 :root {
     --sidebar-width: 236px;
+    --rail-gap: 16px;
 }
 
 /* 侧栏顶部块：窄屏时就是原来那一行「头像 + 站名 + 深色开关」 */
@@ -421,7 +422,11 @@ select {
     }
 }
 
-/* 超宽屏：正文右侧再挂一列固定目录 */
+/*
+   超宽屏：正文右侧再挂一列固定目录。
+   这里的主栏和目录栏共用同一个内容宽度，避免目录看起来像是被
+   随意贴在页面最右边。
+*/
 @media (min-width: 1150px) {
     :root {
         --main-width: 1080px;
@@ -488,6 +493,52 @@ select {
     .toc-aside-nav ul ul a {
         padding-left: 24px;
         font-size: 12.5px;
+    }
+}
+
+/*
+   大显示器上的三栏页架。
+
+   旧布局让左侧栏固定在视窗左边，而 main 只在「去掉侧栏后的剩余
+   区域」居中，所以屏幕越宽，正文越明显地向右偏。这里把左栏、正文
+   和目录作为一个 1376px 的整体居中：240 + 16 + 1120。正文仍保留
+   24px 的内边距，文章列与目录列的比例则由上面的 post-single grid
+   控制。这样三栏的外沿和留白都有明确的节奏。
+*/
+@media (min-width: 1400px) {
+    :root {
+        --sidebar-width: 240px;
+        --shell-width: 1376px;
+        --shell-half: 688px;
+        --main-shell-width: 1120px;
+    }
+
+    body {
+        padding-left: 0;
+    }
+
+    .header {
+        left: calc(50% - var(--shell-half));
+        width: var(--sidebar-width);
+        box-shadow: none;
+    }
+
+    .header-nav {
+        padding: 32px 22px 36px;
+    }
+
+    .main {
+        width: var(--main-shell-width);
+        max-width: var(--main-shell-width);
+        margin-top: 0;
+        margin-right: 0;
+        margin-bottom: 0;
+        margin-left: calc(50% - var(--shell-half) + var(--sidebar-width) + var(--rail-gap));
+    }
+
+    /* 让文章标题、正文和目录在三栏系统中从同一条基线开始。 */
+    .post-single > .toc-aside {
+        top: 32px;
     }
 }
 

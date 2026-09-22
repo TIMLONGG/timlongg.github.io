@@ -167,6 +167,7 @@ select {
 :root {
     --sidebar-width: 236px;
     --rail-gap: 16px;
+    --code-block-bg: #f6f8fa;
 }
 
 /* 侧栏顶部块：窄屏时就是原来那一行「头像 + 站名 + 深色开关」 */
@@ -253,6 +254,85 @@ select {
     color: var(--theme);
     background: var(--primary);
     border-color: var(--primary);
+}
+
+/*
+   主题自带的 Chroma 配色是深色方案，原本会在浅色页面中留下突兀的
+   黑色代码块。浅色模式改用接近 GitHub Light 的低对比底色与语法色；
+   深色模式继续使用主题原有的 Catppuccin 配色。
+*/
+:root[data-theme="light"] .md-content .highlight:not(table) {
+    background: var(--code-block-bg) !important;
+    border: 1px solid #d0d7de;
+}
+
+:root[data-theme="light"] .md-content pre.chroma code {
+    color: #24292f;
+    background: var(--code-block-bg) !important;
+}
+
+:root[data-theme="light"] .chroma .ln,
+:root[data-theme="light"] .chroma .lnt {
+    color: #8c959f;
+}
+
+:root[data-theme="light"] .chroma .hl {
+    background-color: #fff8c5;
+}
+
+:root[data-theme="light"] .chroma .k,
+:root[data-theme="light"] .chroma .kd,
+:root[data-theme="light"] .chroma .kn,
+:root[data-theme="light"] .chroma .kp,
+:root[data-theme="light"] .chroma .kr,
+:root[data-theme="light"] .chroma .kt {
+    color: #cf222e;
+}
+
+:root[data-theme="light"] .chroma .na,
+:root[data-theme="light"] .chroma .nb,
+:root[data-theme="light"] .chroma .nf,
+:root[data-theme="light"] .chroma .fm,
+:root[data-theme="light"] .chroma .nn,
+:root[data-theme="light"] .chroma .nx {
+    color: #8250df;
+}
+
+:root[data-theme="light"] .chroma .s,
+:root[data-theme="light"] .chroma .s1,
+:root[data-theme="light"] .chroma .s2,
+:root[data-theme="light"] .chroma .sa,
+:root[data-theme="light"] .chroma .sb,
+:root[data-theme="light"] .chroma .sc,
+:root[data-theme="light"] .chroma .sd,
+:root[data-theme="light"] .chroma .se,
+:root[data-theme="light"] .chroma .sh,
+:root[data-theme="light"] .chroma .si,
+:root[data-theme="light"] .chroma .sr {
+    color: #0a3069;
+}
+
+:root[data-theme="light"] .chroma .m,
+:root[data-theme="light"] .chroma .mb,
+:root[data-theme="light"] .chroma .mf,
+:root[data-theme="light"] .chroma .mh,
+:root[data-theme="light"] .chroma .mi,
+:root[data-theme="light"] .chroma .mo {
+    color: #0550ae;
+}
+
+:root[data-theme="light"] .chroma .o,
+:root[data-theme="light"] .chroma .ow {
+    color: #0550ae;
+}
+
+:root[data-theme="light"] .chroma .c,
+:root[data-theme="light"] .chroma .c1,
+:root[data-theme="light"] .chroma .cm,
+:root[data-theme="light"] .chroma .cp,
+:root[data-theme="light"] .chroma .cpf,
+:root[data-theme="light"] .chroma .cs {
+    color: #6e7781;
 }
 
 /* 右侧固定目录：默认隐藏，只在很宽的屏幕上启用（窄屏用正文上方的可折叠目录） */

@@ -48,10 +48,6 @@ comments                = false     # 需要评论时另配（例如 giscus）
     limit             = 10
     keys              = ["title", "permalink", "summary", "content"]
 
-[footer]
-    # 默认会输出 © 年份 站点名 + Powered by Hugo & PaperMod，这里不再重复版权
-    text = "笔记 · 分享 · 记录"
-
 [[socialIcons]]
     name  = "github"
     title = "GitHub"

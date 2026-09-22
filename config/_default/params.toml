@@ -1,88 +1,58 @@
-# 主题参数：全部可选项见
-# https://github.com/CaiJimmy/hugo-theme-stack/blob/master/config/_default/params.toml
+# PaperMod 主题参数
+# 完整可选项：https://github.com/adityatelange/hugo-PaperMod/blob/master/docs/config.md
 
-# 首页 / 归档页展示哪些分区（content/post 目录）
-mainSections   = ["post"]
-rssFullContent = true
-favicon        = "img/favicon.png"
+env         = "production"
+description = "笔记 · 分享 · 记录"
+keywords    = ["学习笔记", "机器学习", "系统设计", "LaTeX"]
+mainSections = ["post"]
 
-# 排序：default（按日期）/ lastmod（按最后修改时间）
-SortBy = "default"
+# 颜色模式：auto（跟随系统）/ light / dark
+defaultTheme        = "light"
+disableThemeToggle  = false
+
+# 文章页元素
+ShowReadingTime         = true
+ShowWordCount           = false
+ShowToc                 = true      # 长文自动生成目录
+TocOpen                 = false
+ShowCodeCopyButtons     = true
+ShowPostNavLinks        = true      # 上一篇/下一篇
+ShowBreadCrumbs         = false
+ShowShareButtons        = false
+ShowFullTextinRSS       = true
+ShowRssButtonInSectionTermList = true
+disableSpecial1stPost   = true      # 首页第一篇文章不做大字号特写，保持列表整齐
+hideSummary             = false
+comments                = false     # 需要评论时另配（例如 giscus）
+
+# 首页顶部：标题 + 简介（搜索框也由这里的模板渲染，见 layouts/partials/home_info.html）
+[homeInfoParams]
+    Title   = "记录与思考"
+    Content = "学习笔记、技术分享与日常记录。用分类整理主题，用标签串联线索。"
+
+[assets]
+    favicon = "/img/favicon.png"
+# 站内搜索（Fuse.js，索引来自 /index.json）
+[fuseOpts]
+    iscasesensitive   = false
+    shouldsort        = true
+    location          = 0
+    distance          = 1000
+    threshold         = 0.4
+    minmatchcharlength = 1
+    limit             = 10
+    keys              = ["title", "permalink", "summary", "content"]
 
 [footer]
-    since      = 2026
-    customText = ""
+    # 默认会输出 © 年份 站点名 + Powered by Hugo & PaperMod，这里不再重复版权
+    text = "笔记 · 分享 · 记录"
 
-[dateFormat]
-    published   = "2006-01-02"
-    lastUpdated = "2006-01-02"
+[[socialIcons]]
+    name  = "github"
+    title = "GitHub"
+    url   = "https://github.com/TIMLONGG"
 
-[sidebar]
-    emoji    = "📚"
-    subtitle = "笔记 · 分享 · 记录"
-    avatar   = "img/avatar.png"
-
-[article]
-    # 标题前显示锚点链接，方便引用小节
-    headingAnchor = true
-    # 全局开启 KaTeX 公式渲染（单篇文章也可以用自己的 front matter math: false 覆盖）
-    math          = true
-    toc           = true
-    readingTime   = true
-
-    [article.list]
-        # 在首页/列表卡片上显示标签
-        showTags = true
-
-    [article.license]
-        enabled = false
-        default = "本文采用 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可协议"
-
-[widgets]
-    # 首页右侧栏
-    homepage = [
-        { type = "search" },
-        { type = "archives", params = { limit = 5 } },
-        { type = "categories", params = { limit = 20 } },
-        { type = "tag-cloud", params = { limit = 20 } },
-    ]
-    # 文章页右侧栏
-    page = [{ type = "toc" }]
-
-[colorScheme]
-    toggle  = true
-    # 传统技术博客以明亮、长时间阅读友好的排版为默认；仍可手动切换深色模式。
-    default = "light"
-
-# 图片处理：正文内的图片会自动生成 800/1600/2400 三种宽度
-[imageProcessing]
-    autoOrient = false
-
-    [imageProcessing.external]
-        timeout = "10s"
-
-    [imageProcessing.content]
-        widths  = [800, 1600, 2400]
-        enabled = true
-
-    [imageProcessing.thumbnail]
-        enabled = true
-
-# 评论：暂不开启。想用 Giscus（GitHub Discussions）就把 enabled 改成 true 并填下面的 repo/repoID
-[comments]
-    enabled  = false
-    provider = "giscus"
-
-    [comments.giscus]
-        repo             = "TIMLONGG/timlongg.github.io"
-        repoID           = ""
-        category         = "Announcements"
-        categoryID       = ""
-        mapping          = "pathname"
-        lightTheme       = "light"
-        darkTheme        = "dark_dimmed"
-        reactionsEnabled = 1
-        emitMetadata     = 0
-        inputPosition    = "top"
-        lang             = "zh-CN"
-        loading          = "lazy"
+[[socialIcons]]
+    name  = "rss"
+    title = "RSS"
+    url   = "/index.xml"

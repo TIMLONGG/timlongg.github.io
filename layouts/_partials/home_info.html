@@ -1,0 +1,28 @@
+{{/*
+    首页（= blog 列表页）的顶部区块：
+    1) 标题 + 简介（来自 params.toml 的 homeInfoParams）
+    2) 站内搜索框（Fuse.js，索引 /index.json，脚本在 layouts/_partials/extend_head.html 里按需加载）
+
+    PaperMod 会把这个 partial 渲染在文章列表之前，所以搜索框天然位于 blog 页最上方。
+*/}}
+
+{{- with site.Params.homeInfoParams }}
+<article class="first-entry home-info">
+    <header class="entry-header">
+        <h1>{{ .Title | markdownify }}</h1>
+    </header>
+    <div class="entry-content md-content">
+        {{ $opts := dict "display" "block" }}
+        {{ .Content | $.Page.RenderString $opts }}
+    </div>
+    <footer class="entry-footer">
+        {{ partial "social_icons.html" (dict "align" site.Params.homeInfoParams.AlignSocialIconsTo) }}
+    </footer>
+</article>
+{{- end }}
+
+<div id="searchbox" class="searchbox home-search">
+    <input id="searchInput" disabled placeholder="搜索文章：标题 / 关键词 / 正文…" aria-label="搜索" type="search"
+        autocomplete="off" maxlength="64">
+    <ul id="searchResults" class="searchResults" aria-label="搜索结果"></ul>
+</div>

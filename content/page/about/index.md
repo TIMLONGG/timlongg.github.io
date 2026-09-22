@@ -2,13 +2,6 @@
 title: 关于我
 slug: about
 description: 简单介绍一下自己，以及这个站点在写什么。
-menu:
-    main:
-        name: 关于
-        weight: 4
-        params:
-            icon: user
-comments: false
 ---
 
 你好，我是 **TIMLONGG** 👋

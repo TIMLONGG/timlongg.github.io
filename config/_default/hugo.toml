@@ -1,0 +1,27 @@
+# 站点主配置（主题：PaperMod，极简/学术风）
+# 主题文档：https://github.com/adityatelange/hugo-PaperMod/wiki
+
+baseURL = "https://timlongg.github.io/"
+title   = "TIMLONGG"
+
+# 界面语言：zh（对应主题自带的 i18n/zh.yaml，界面文案自动中文）
+defaultContentLanguage = "zh"
+locale                 = "zh-CN"
+
+# 中文内容必须开启，否则摘要/字数统计会按空格分词
+hasCJKLanguage = true
+enableEmoji    = true
+timeZone       = "Asia/Shanghai"
+
+# 主题以 git submodule 引用，固定在 v8.0（见 .gitmodules）
+theme = "hugo-PaperMod"
+
+[pagination]
+    pagerSize = 10
+
+# 首页需要额外输出 JSON —— 这是站内搜索（Fuse.js）的数据源 /index.json
+[outputs]
+    home     = ["HTML", "RSS", "JSON"]
+    section  = ["HTML", "RSS"]
+    taxonomy = ["HTML", "RSS"]
+    term     = ["HTML", "RSS"]

@@ -1,38 +1,32 @@
 name: Update theme
 
-# Controls when the workflow will run
+# 主题（PaperMod）以 git submodule 引用。
+# 这个 workflow 只在手动触发时运行，把主题升到最新 master commit 并自动提交。
+# 想定期自动更新，把下面的 schedule 注释放开即可。
+
 on:
-  # 默认只支持手动触发（Actions 页面 → Run workflow）
-  # 想每天自动检查主题更新的话，取消下面两行的注释
   # schedule:
-  #   - cron: "0 0 * * *"
+  #   - cron: "0 0 1 * *"
   workflow_dispatch:
 
 jobs:
   update-theme:
     runs-on: ubuntu-latest
-
     permissions:
-      # Give the default GITHUB_TOKEN write permission to commit and push the
-      # added or changed files to the repository.
       contents: write
-    
     steps:
       - uses: actions/checkout@v6
-
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: 'latest'
-          extended: true
+          submodules: recursive
+          fetch-depth: 0
 
-      - name: Update theme
-        run: hugo mod get -u
+      - name: Update theme submodule
+        run: git submodule update --remote themes/hugo-PaperMod
 
-      - name: Tidy go.mod, go.sum
-        run: hugo mod tidy
+      - name: Show new version
+        run: git -C themes/hugo-PaperMod log --oneline -1
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
-          commit_message: "CI: Update theme"
+          commit_message: "chore: update PaperMod theme"

@@ -1,95 +1,86 @@
-{{ define "body-class" }}article-page template-cv{{ end }}
-
+{{- define "main" }}
 {{/*
-    简历页：所有内容都来自 data/cv.yaml
-    换主题时只需要重写这个文件，数据本身不用动。
-    用法：content/page/cv/index.md 的 front matter 里写 layout: cv
+    简历页：内容全部来自 data/cv.yaml
+    换主题时只需重写这个文件，数据不用动。
+    用法：content/page/cv/index.md 里写 layout: cv
 */}}
+{{- $cv := hugo.Data.cv }}
+<article class="post-single cv-page">
+    <header class="cv-header">
+        <h1 class="cv-name">{{ $cv.name }}</h1>
+        {{- with $cv.title }}
+        <p class="cv-title">{{ . }}</p>
+        {{- end }}
+        {{- with $cv.summary }}
+        <p class="cv-summary">{{ . | markdownify }}</p>
+        {{- end }}
 
-{{ define "main" }}
-    {{- $cv := hugo.Data.cv -}}
-    <article class="main-article cv-page">
-        <header class="cv-header">
-            <div class="cv-header-main">
-                <h1 class="cv-name">{{ $cv.name }}</h1>
-                {{- with $cv.title }}
-                <p class="cv-title">{{ . }}</p>
-                {{- end }}
-                {{- with $cv.summary }}
-                <p class="cv-summary">{{ . | markdownify }}</p>
-                {{- end }}
-            </div>
-
-            {{- with $cv.contact }}
-            <ul class="cv-contact">
-                {{- range . }}
-                <li>
-                    {{- if .url }}<a href="{{ .url }}"{{ if not (hasPrefix .url "mailto:") }} target="_blank" rel="noopener"{{ end }}>{{ .text }}</a>
-                    {{- else }}{{ .text }}{{ end -}}
-                </li>
-                {{- end }}
-            </ul>
+        {{- with $cv.contact }}
+        <ul class="cv-contact">
+            {{- range . }}
+            <li>
+                {{- if .url }}<a href="{{ .url }}"{{ if not (hasPrefix .url "mailto:") }} target="_blank" rel="noopener"{{ end }}>{{ .text }}</a>
+                {{- else }}{{ .text }}{{ end -}}
+            </li>
             {{- end }}
+        </ul>
+        {{- end }}
 
-            <div class="cv-actions">
-                {{- with .Params.pdf }}
-                <a class="cv-button" href="{{ . | relURL }}" target="_blank" rel="noopener">下载 PDF 版</a>
-                {{- end }}
-                <a class="cv-button cv-button--ghost" href="javascript:window.print()">打印 / 存为 PDF</a>
-                {{- with $cv.updated }}
-                <span class="cv-updated">最近更新：{{ . }}</span>
-                {{- end }}
-            </div>
-        </header>
-
-        <div class="cv-body">
-            {{- with .Content }}
-            <div class="cv-intro">{{ . }}</div>
+        <div class="cv-actions">
+            {{- with .Params.pdf }}
+            <a class="cv-button" href="{{ . | relURL }}" target="_blank" rel="noopener">下载 PDF 版</a>
             {{- end }}
-
-            {{- range $cv.sections }}
-            <section class="cv-section">
-                <h2 class="cv-section-title">{{ .title }}</h2>
-                {{- range .items }}
-                <div class="cv-item">
-                    <div class="cv-item-head">
-                        <span class="cv-item-title">{{ .title }}</span>
-                        {{- with .date }}<span class="cv-item-date">{{ . }}</span>{{ end }}
-                    </div>
-                    {{- with .subtitle }}<div class="cv-item-subtitle">{{ . }}</div>{{ end }}
-                    {{- with .details }}
-                    <ul class="cv-item-details">
-                        {{- range . }}<li>{{ . | markdownify }}</li>{{ end }}
-                    </ul>
-                    {{- end }}
-                    {{- with .tags }}
-                    <div class="cv-item-tags">
-                        {{- range . }}<span>{{ . }}</span>{{ end }}
-                    </div>
-                    {{- end }}
-                    {{- with .link }}
-                    <div class="cv-item-link"><a href="{{ . }}" target="_blank" rel="noopener">{{ . }}</a></div>
-                    {{- end }}
-                </div>
-                {{- end }}
-            </section>
-            {{- end }}
-
-            {{- with $cv.skills }}
-            <section class="cv-section">
-                <h2 class="cv-section-title">技能</h2>
-                {{- range . }}
-                <div class="cv-skill-row">
-                    <span class="cv-skill-label">{{ .title }}</span>
-                    <span class="cv-skill-items">
-                        {{- range .items }}<span class="cv-skill">{{ . }}</span>{{ end }}
-                    </span>
-                </div>
-                {{- end }}
-            </section>
+            <a class="cv-button cv-button--ghost" href="javascript:window.print()">打印 / 存为 PDF</a>
+            {{- with $cv.updated }}
+            <span class="cv-updated">最近更新：{{ . }}</span>
             {{- end }}
         </div>
-    </article>
+    </header>
 
-    {{ partialCached "footer/footer" . }}
-{{ end }}
+    {{- with .Content }}
+    <div class="cv-intro post-content">{{ . }}</div>
+    {{- end }}
+
+    {{- range $cv.sections }}
+    <section class="cv-section">
+        <h2 class="cv-section-title">{{ .title }}</h2>
+        {{- range .items }}
+        <div class="cv-item">
+            <div class="cv-item-head">
+                <span class="cv-item-title">{{ .title }}</span>
+                {{- with .date }}<span class="cv-item-date">{{ . }}</span>{{ end }}
+            </div>
+            {{- with .subtitle }}<div class="cv-item-subtitle">{{ . }}</div>{{ end }}
+            {{- with .details }}
+            <ul class="cv-item-details">
+                {{- range . }}<li>{{ . | markdownify }}</li>{{ end }}
+            </ul>
+            {{- end }}
+            {{- with .tags }}
+            <div class="cv-item-tags">
+                {{- range . }}<span>{{ . }}</span>{{ end }}
+            </div>
+            {{- end }}
+            {{- with .link }}
+            <div class="cv-item-link"><a href="{{ . }}" target="_blank" rel="noopener">{{ . }}</a></div>
+            {{- end }}
+        </div>
+        {{- end }}
+    </section>
+    {{- end }}
+
+    {{- with $cv.skills }}
+    <section class="cv-section">
+        <h2 class="cv-section-title">技能</h2>
+        {{- range . }}
+        <div class="cv-skill-row">
+            <span class="cv-skill-label">{{ .title }}</span>
+            <span class="cv-skill-items">
+                {{- range .items }}<span class="cv-skill">{{ . }}</span>{{ end }}
+            </span>
+        </div>
+        {{- end }}
+    </section>
+    {{- end }}
+</article>
+{{- end }}{{/* end main */}}

@@ -458,6 +458,11 @@ select {
         overflow-y: auto;
     }
 
+    /* 简历没有文章目录，改为使用完整主栏，避免留下空的右侧轨道。 */
+    .post-single.cv-page {
+        display: block;
+    }
+
     .toc-aside-title {
         margin-bottom: 8px;
         padding-left: 12px;

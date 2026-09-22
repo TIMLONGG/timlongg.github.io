@@ -3,6 +3,7 @@ title: 公式速查：在 Markdown 里写 LaTeX
 slug: latex-math
 description: KaTeX 能渲染什么、怎么写行内与块级公式、以及几个容易踩的坑。
 date: 2026-09-20 21:00:00+0800
+draft: true
 categories:
     - notes
 tags:

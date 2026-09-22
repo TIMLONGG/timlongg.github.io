@@ -3,6 +3,7 @@ title: 我的笔记分类方式：分类、标签与归档
 slug: how-i-organize-notes
 description: 用 categories 作大类、tags 作关键词、归档页作时间线，让笔记可检索、可复习。
 date: 2026-09-18 09:00:00+0800
+draft: true
 categories:
     - notes
 tags:

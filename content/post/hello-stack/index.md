@@ -3,6 +3,7 @@ title: 站点开张：为什么用 Hugo + Stack
 slug: hello-stack
 description: 记录这个站点的技术选型、目录结构、分类约定和部署方式，兼作站点使用说明。
 date: 2026-09-21 10:00:00+0800
+draft: true
 categories:
     - announcements
 tags:

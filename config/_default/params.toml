@@ -32,7 +32,7 @@ comments                = false     # 需要评论时另配（例如 giscus）
 # 说明：这个字段现在只作为“渲染 home_info 部分”的开关（个人简介已放在左侧栏的 profileBio 里），
 # 具体渲染什么由 layouts/_partials/home_info.html 控制
 [homeInfoParams]
-    Title   = "最新文章"
+    Title   = "MLSys·im 实验笔记"
     Content = ""
 
 [assets]

@@ -51,7 +51,8 @@ SortBy = "default"
 
 [colorScheme]
     toggle  = true
-    default = "auto"
+    # 传统技术博客以明亮、长时间阅读友好的排版为默认；仍可手动切换深色模式。
+    default = "light"
 
 # 图片处理：正文内的图片会自动生成 800/1600/2400 三种宽度
 [imageProcessing]

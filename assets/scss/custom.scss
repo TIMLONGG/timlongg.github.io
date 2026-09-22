@@ -12,6 +12,267 @@
         "Noto Sans CJK SC", sans-serif;
 }
 
+/* ---------- 紧凑技术博客：借鉴传统博客的信息密度，而非卡片式展示 ---------- */
+:root {
+    --body-background: #f7f7f7;
+    --accent-color: #3b78a8;
+    --accent-color-darker: #2d618c;
+    --body-text-color: #555;
+    --card-background: #fff;
+    --card-background-selected: #edf4f8;
+    --card-text-color-main: #333;
+    --card-text-color-secondary: #666;
+    --card-text-color-tertiary: #888;
+    --card-separator-color: #e3e3e3;
+    --card-border-radius: 0;
+    --tag-border-radius: 2px;
+    --section-separation: 18px;
+    --main-top-padding: 24px;
+    --card-padding: 22px;
+    --small-card-padding: 16px 18px;
+    --shadow-l1: none;
+    --shadow-l2: none;
+}
+
+body {
+    font-size: 15px;
+    background: var(--body-background);
+}
+
+.container.extended {
+    max-width: 1320px;
+
+    @include respond(md) {
+        --left-sidebar-max-width: 190px;
+        --right-sidebar-max-width: 245px;
+    }
+
+    @include respond(lg) {
+        --left-sidebar-max-width: 205px;
+        --right-sidebar-max-width: 255px;
+    }
+}
+
+.main-container {
+    gap: 24px;
+}
+
+main.main {
+    gap: 18px;
+}
+
+/* 左栏改为朴素的站点名和纵向目录 */
+.left-sidebar {
+    --sidebar-element-separation: 18px;
+
+    @include respond(md) {
+        padding-top: 24px;
+        padding-bottom: 24px;
+        padding-right: 20px;
+        border-right: 1px solid #e1e1e1;
+    }
+}
+
+.sidebar header {
+    gap: 12px;
+
+    .site-avatar {
+        width: 68px;
+        height: 68px;
+
+        .site-logo {
+            box-shadow: none;
+            border: 1px solid #d9d9d9;
+        }
+
+        .emoji {
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
+            box-shadow: none;
+            border: 1px solid #ddd;
+        }
+    }
+
+    .site-meta { gap: 3px; }
+    .site-name { color: #333; font-size: 1.65rem; letter-spacing: .02em; }
+    .site-description { font-size: 1.3rem; }
+}
+
+#main-menu {
+    font-size: 1.4rem;
+
+    @include respond(md) {
+        padding-top: 5px;
+        gap: 2px;
+    }
+
+    li a {
+        border-radius: 0;
+        padding: 9px 4px;
+        border-bottom: 1px solid transparent;
+
+        &:hover {
+            color: var(--accent-color);
+            background: transparent;
+            border-bottom-color: #d9e5ed;
+        }
+    }
+}
+
+.menu-social { gap: 12px; }
+
+/* 首页和列表页：文章之间使用细线，而不是独立的巨大圆角卡片 */
+.article-list {
+    gap: 0;
+    background: var(--card-background);
+    border: 1px solid var(--card-separator-color);
+
+    article {
+        border-radius: 0;
+        box-shadow: none;
+        overflow: visible;
+        border-bottom: 1px solid var(--card-separator-color);
+
+        &:last-child { border-bottom: 0; }
+        &:hover { box-shadow: none; background: #fcfdfe; }
+
+        .article-image img {
+            height: 150px;
+        }
+    }
+}
+
+@include respond(md) {
+    .article-list article .article-image img {
+        height: 170px;
+    }
+}
+
+.article-details {
+    padding: 18px 22px 16px;
+    gap: 8px;
+}
+
+.article-title {
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.35;
+
+    a:hover { color: var(--accent-color); opacity: 1; }
+}
+
+.article-title-wrapper { gap: 5px; }
+
+.article-subtitle {
+    font-size: 1.45rem;
+    line-height: 1.65;
+}
+
+.article-meta, .article-meta time, .article-meta a, .article-meta span {
+    font-size: 1.25rem;
+}
+
+.article-meta { gap: 8px; }
+
+.article-category a, .article-tags a {
+    padding: 2px 7px;
+    border-radius: 2px;
+    font-size: 1.2rem;
+    color: #5b7283;
+    background: #edf3f6;
+}
+
+/* 右栏的模块不再是大色块；标题和内容由留白、分割线组织 */
+.right-sidebar {
+    gap: 22px;
+
+    @include respond(lg) {
+        padding-top: 24px;
+        padding-bottom: 24px;
+    }
+}
+
+.widget {
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--card-separator-color);
+
+    .widget-title.section-title {
+        margin: 0 0 10px;
+        padding: 0 0 7px;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #444;
+        border-bottom: 2px solid var(--accent-color);
+    }
+}
+
+.widget.archives .widget-archive--list {
+    border: 0;
+    box-shadow: none;
+}
+
+.widget.archives .archives-year a {
+    padding: 8px 2px;
+    font-size: 1.35rem;
+}
+
+.tagCloud .tagCloud-tags {
+    gap: 6px;
+
+    a {
+        padding: 3px 8px;
+        border: 1px solid #e0e0e0;
+        border-radius: 2px;
+        box-shadow: none;
+        font-size: 1.25rem;
+
+        &:hover { color: var(--accent-color); border-color: #aac5d7; box-shadow: none; }
+    }
+}
+
+.search-form.widget { border: 0; padding: 0; }
+
+.search-form.widget input {
+    height: 34px;
+    padding: 0 36px 0 10px;
+    border: 1px solid #d8d8d8;
+    border-radius: 2px;
+    background: #fff;
+    font-size: 1.3rem;
+}
+
+.pagination {
+    border: 1px solid var(--card-separator-color);
+    border-radius: 0;
+    box-shadow: none;
+    background: #fff;
+
+    .page-link {
+        min-width: 38px;
+        padding: 9px 0;
+
+        &.current { background: var(--accent-color); color: #fff; }
+    }
+}
+
+/* 深色模式保留同样的克制结构，避免切换后重新变成卡片墙。 */
+[data-scheme="dark"] {
+    --body-background: #252525;
+    --accent-color: #75a9d1;
+    --accent-color-darker: #94c3e3;
+    --card-background: #2d2d2d;
+    --card-background-selected: #3a3a3a;
+    --card-separator-color: #444;
+
+    .left-sidebar { border-right-color: #454545; }
+    .sidebar header .site-name, .widget .widget-title.section-title { color: #e5e5e5; }
+    .article-list article:hover { background: #303030; }
+    .article-category a, .article-tags a { color: #c4d9e8; background: #35424a; }
+    .tagCloud .tagCloud-tags a { border-color: #4b4b4b; }
+    .search-form.widget input { border-color: #4b4b4b; background: #303030; }
+}
+
 /* ---------- 简历页 ---------- */
 .cv-page {
     .cv-header {

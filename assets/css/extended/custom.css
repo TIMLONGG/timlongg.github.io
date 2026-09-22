@@ -679,6 +679,15 @@ select {
     color: var(--secondary);
 }
 
+/* 期刊分区与影响因子采用独立的强调行，而不是与正文混在一起。 */
+.cv-page .cv-item-badge {
+    margin-top: 4px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--primary);
+}
+
 .cv-page .cv-item-details {
     margin: 6px 0 0;
     padding-left: 18px;
@@ -691,21 +700,20 @@ select {
     line-height: 1.7;
 }
 
-.cv-page .cv-item-tags,
 .cv-page .cv-skill-items {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 6px;
+    margin-top: 0;
 }
 
-.cv-page .cv-item-tags span,
 .cv-page .cv-skill {
-    padding: 1px 8px;
-    font-size: 12px;
+    font-size: 14px;
     color: var(--secondary);
-    border: 1px solid var(--border);
-    border-radius: 999px;
+}
+
+.cv-page .cv-skill-separator {
+    padding: 0 5px;
+    color: var(--tertiary);
 }
 
 .cv-page .cv-item-link {

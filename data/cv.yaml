@@ -5,16 +5,6 @@ summary: >-
   Interested in large language model post-training, reinforcement learning, and efficient distributed training and inference systems.
 updated: September 2026
 
-contact:
-  - text: "+86 189-5292-2103"
-  - text: "Born Apr 2, 2004"
-  - text: xlsong@csu.edu.cn
-    url: mailto:xlsong@csu.edu.cn
-  - text: github.com/TIMLONGG
-    url: https://github.com/TIMLONGG
-  - text: timlongg.github.io
-    url: https://timlongg.github.io/
-
 sections:
   - title: Education
     items:
@@ -34,11 +24,6 @@ sections:
           - Designed a decoupled two-GPU architecture (2 × A800 80 GB) for concurrent policy training and vLLM rollout/evaluation, with hot weight synchronization and verifiable answer-and-format rewards for stable training.
           - Implemented the GRPO training stack, including reward computation, group-normalized advantages, old log-probability caching, importance ratios, clipped loss, gradient accumulation, and key hyperparameter/strategy ablations.
           - Improved GSM8K performance from a 17.59% accuracy / 50.42% format-compliance baseline to 79.99% accuracy / 99.1%+ format compliance with GRPO, outperforming SFT (76.20%) and EI (71.80%) under the same training budget.
-        tags:
-          - Qwen2.5-Math-1.5B
-          - GRPO
-          - vLLM
-          - Reinforcement Learning
       - title: Step-RL — Reinforcement Learning for Mobile Intelligent Assistants
         date: Jan 2026 – Mar 2026
         details:
@@ -46,32 +31,25 @@ sections:
           - Fine-tuned a Qwen3-8B baseline with LoRA and developed a Progress Estimator (LLM + lightweight MLP) that converts sparse terminal rewards into dense intermediate feedback, accelerating PPO convergence.
           - Introduced grounding signals that monitor clickability, element existence, and page-loading state; incorporated environment feedback into reward penalties to reduce invalid actions and improve decision stability.
           - Increased e-commerce task completion from 85% to 90%, reduced average multi-turn task time by 28% (25 s to 18 s), and achieved 96.2% action-grounding accuracy.
-        tags:
-          - Qwen3-8B
-          - PPO
-          - LoRA
-          - Mobile Agents
 
   - title: Internship Experience
     items:
-      - title: Changsha Tanci Technology Co., Ltd.
+      - title: WordTrace
         subtitle: LLM Algorithm Intern
         date: Dec 2025 – Mar 2026
         details:
           - Built a GEO (Generative Engine Optimization) experimentation framework to quantitatively evaluate optimization strategies across 20+ industries; designed 4,000+ experimental records and a full pipeline for prompt construction, batch execution, result parsing, and metric evaluation.
           - Systematically evaluated product-strengthening, language-polishing, competitive negative-framing, and third-party-endorsement strategies, completing 46,000+ experimental samples.
           - "Verified that GEO strategies can affect LLM recommendation outcomes: compared with neutral optimization, product-strengthening and external-endorsement approaches were more effective, raising a target product's Top-1 recommendation rate from low single digits to 10%–30% in some industry settings."
-        tags:
-          - GEO
-          - LLM Evaluation
-          - Experimentation
 
   - title: Publications
     items:
       - title: Adaptive Dual Cross-Attention Network for Multispectral Object Detection in Autonomous Driving
-        subtitle: Expert Systems With Applications (ESWA), 2026 · Student First Author · SCI Q1, IF 9.4
+        subtitle: Expert Systems With Applications (ESWA), 2026 · Student First Author
+        badge: SCI Q1 · IF 9.4
       - title: Multi-Variety Rice Yield Prediction from Heterogeneous UAV Time-Series Data via a Cross-Period Attention Transformer
-        subtitle: Journal of Integrative Agriculture (JIA), 2026 · Second Author · SCI Q1, IF 5.7
+        subtitle: Journal of Integrative Agriculture (JIA), 2026 · Second Author
+        badge: SCI Q1 · IF 5.7
 
 skillsTitle: Technical Skills
 skills:

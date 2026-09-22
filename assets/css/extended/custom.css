@@ -61,6 +61,44 @@ select {
     margin: 0;
 }
 
+/* 搜索结果展示命中片段，让读者知道关键词来自标题还是正文。 */
+.searchResults li {
+    align-items: flex-start;
+}
+
+.search-result-body {
+    min-width: 0;
+}
+
+.search-result-title {
+    display: block;
+}
+
+.search-result-context {
+    display: block;
+    margin-top: 3px;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.55;
+    color: var(--secondary);
+}
+
+.searchResults li > svg {
+    flex: 0 0 auto;
+    margin-top: 3px;
+}
+
+.searchResults mark {
+    padding: 0 2px;
+    color: inherit;
+    background: #fff1a8;
+    border-radius: 2px;
+}
+
+:root[data-theme="dark"] .searchResults mark {
+    background: #655000;
+}
+
 /* 文章列表：去掉卡片底色/圆角/悬浮动画，改成“细分割线 + 纯文字”的传统博客列表 */.post-entry {
     margin-bottom: 0;
     padding: 14px 0;

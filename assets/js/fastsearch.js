@@ -22,7 +22,8 @@ const buildFuseOptions = () => {
     return {
         isCaseSensitive: params.fuseOpts.iscasesensitive ?? false,
         includeScore: params.fuseOpts.includescore ?? false,
-        includeMatches: params.fuseOpts.includematches ?? false,
+        // 搜索结果需要显示命中位置，因此始终请求 Fuse 返回匹配区间。
+        includeMatches: true,
         minMatchCharLength: params.fuseOpts.minmatchcharlength ?? 1,
         shouldSort: params.fuseOpts.shouldsort ?? true,
         findAllMatches: params.fuseOpts.findallmatches ?? false,
@@ -60,6 +61,48 @@ const setActiveResult = (element) => {
     currentElement = element;
 };
 
+const findMatch = (result, keys) => result.matches?.find((match) => keys.includes(match.key));
+
+const appendHighlightedText = (element, text, indices = []) => {
+    const ranges = [...indices]
+        .map(([start, end]) => [Math.max(0, start), Math.min(text.length - 1, end)])
+        .filter(([start, end]) => start <= end)
+        .sort(([left], [right]) => left - right);
+    let cursor = 0;
+
+    for (const [start, end] of ranges) {
+        if (start > cursor) element.appendChild(document.createTextNode(text.slice(cursor, start)));
+
+        const mark = document.createElement('mark');
+        mark.textContent = text.slice(Math.max(cursor, start), end + 1);
+        element.appendChild(mark);
+        cursor = Math.max(cursor, end + 1);
+    }
+
+    if (cursor < text.length) element.appendChild(document.createTextNode(text.slice(cursor)));
+};
+
+const createContext = (result) => {
+    const match = findMatch(result, ['content', 'summary']);
+    if (!match?.indices?.length) return null;
+
+    const source = String(result.item[match.key] ?? '');
+    const [matchStart, matchEnd] = match.indices[0];
+    const start = Math.max(0, matchStart - 52);
+    const end = Math.min(source.length, matchEnd + 1 + 108);
+    const context = document.createElement('span');
+    context.className = 'search-result-context';
+
+    if (start > 0) context.appendChild(document.createTextNode('…'));
+    const clippedIndices = match.indices
+        .filter(([left, right]) => right >= start && left < end)
+        .map(([left, right]) => [Math.max(left, start) - start, Math.min(right, end - 1) - start]);
+    appendHighlightedText(context, source.slice(start, end), clippedIndices);
+    if (end < source.length) context.appendChild(document.createTextNode('…'));
+
+    return context;
+};
+
 const renderResults = (results) => {
     if (!Array.isArray(results) || results.length === 0) {
         resList.innerHTML = '';
@@ -70,7 +113,17 @@ const renderResults = (results) => {
     const fragment = document.createDocumentFragment();
     for (const result of results) {
         const li = document.createElement('li');
-        const titleText = document.createTextNode(result.item.title);
+        const body = document.createElement('div');
+        body.className = 'search-result-body';
+        const title = document.createElement('span');
+        title.className = 'search-result-title';
+        const titleMatch = findMatch(result, ['title']);
+        appendHighlightedText(title, result.item.title, titleMatch?.indices);
+        body.appendChild(title);
+
+        const context = createContext(result);
+        if (context) body.appendChild(context);
+
         const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         svg.setAttribute('width', '24');
         svg.setAttribute('height', '24');
@@ -87,7 +140,7 @@ const renderResults = (results) => {
         link.className = 'entry-link';
         link.href = result.item.permalink;
         link.setAttribute('aria-label', result.item.title);
-        li.append(titleText, svg, link);
+        li.append(body, svg, link);
         fragment.appendChild(li);
     }
 

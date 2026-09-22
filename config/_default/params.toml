@@ -6,6 +6,9 @@ description = "笔记 · 分享 · 记录"
 keywords    = ["学习笔记", "机器学习", "系统设计", "LaTeX"]
 mainSections = ["post"]
 
+# 左侧个人信息栏里的简介（支持 Markdown）
+profileBio = "记录学习笔记与技术分享，主题集中在机器学习系统、分布式训练与工具链。"
+
 # 颜色模式：auto（跟随系统）/ light / dark
 defaultTheme        = "light"
 disableThemeToggle  = false
@@ -25,10 +28,12 @@ disableSpecial1stPost   = true      # 首页第一篇文章不做大字号特写
 hideSummary             = false
 comments                = false     # 需要评论时另配（例如 giscus）
 
-# 首页顶部：标题 + 简介（搜索框也由这里的模板渲染，见 layouts/partials/home_info.html）
+# 首页顶部：简介 + 搜索框的触发开关
+# 说明：这个字段现在只作为“渲染 home_info 部分”的开关（个人简介已放在左侧栏的 profileBio 里），
+# 具体渲染什么由 layouts/_partials/home_info.html 控制
 [homeInfoParams]
-    Title   = "记录与思考"
-    Content = "学习笔记、技术分享与日常记录。用分类整理主题，用标签串联线索。"
+    Title   = "最新文章"
+    Content = ""
 
 [assets]
     favicon = "/img/favicon.png"

@@ -1,0 +1,36 @@
+{{/*
+    页面底部额外脚本（PaperMod 官方预留的覆盖点）
+
+    功能：把 GitHub 风格的提示框语法渲染成带样式的色块
+         > [!NOTE] / [!TIP] / [!IMPORTANT] / [!WARNING] / [!CAUTION]
+    这样文章里继续用标准 Markdown 写就行，不用改内容，也不依赖主题功能。
+    样式见 assets/css/extended/custom.css 里的 .alert-*
+*/}}
+<script>
+    (function () {
+        var LABELS = {
+            NOTE: ["备注", "note"],
+            TIP: ["提示", "tip"],
+            IMPORTANT: ["重要", "important"],
+            WARNING: ["警告", "warning"],
+            CAUTION: ["注意", "caution"]
+        };
+        document.querySelectorAll(".md-content blockquote").forEach(function (bq) {
+            var p = bq.querySelector("p");
+            if (!p) return;
+            var m = p.textContent.match(/^\s*\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\s*([\s\S]*)$/);
+            if (!m) return;
+            var info = LABELS[m[1]];
+            bq.classList.add("alert", "alert-" + info[1]);
+            if (m[2].trim()) {
+                p.textContent = m[2];
+            } else {
+                p.remove();
+            }
+            var title = document.createElement("div");
+            title.className = "alert-title";
+            title.textContent = info[0];
+            bq.insertBefore(title, bq.firstChild);
+        });
+    })();
+</script>

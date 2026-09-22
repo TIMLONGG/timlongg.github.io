@@ -1,0 +1,27 @@
+{{/*
+    覆盖 PaperMod 的 toc.html：把目录做成分栏式
+    - 窄屏：正文上方的可折叠「目录」（保持原有行为）
+    - 宽屏（≥1150px）：右侧固定（sticky）目录，点击可跳转到对应小节
+    两处都直接用 Hugo 生成的 .TableOfContents，锚点天生可跳转；
+    层级由 config/_default/markup.toml 的 startLevel/endLevel 控制（当前 2~4 级）。
+*/}}
+{{- $headers := findRE "<h[1-6].*?>(.|\n])+?</h[1-6]>" .Content -}}
+{{- if and (ge (len $headers) 1) .TableOfContents -}}
+{{- $tocTitle := i18n "toc" | default "目录" -}}
+
+<details class="toc toc-inline"{{ if (.Param "TocOpen") }} open{{ end }}>
+    <summary accesskey="c" title="(Alt + C)">
+        <span class="title">{{ $tocTitle }}</span>
+    </summary>
+    <div class="inner">
+        {{- .TableOfContents -}}
+    </div>
+</details>
+
+<aside class="toc-aside" aria-label="{{ $tocTitle }}">
+    <div class="toc-aside-title">{{ $tocTitle }}</div>
+    <nav class="toc-aside-nav">
+        {{- .TableOfContents -}}
+    </nav>
+</aside>
+{{- end -}}

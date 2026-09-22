@@ -1,0 +1,33 @@
+{{/*
+    覆盖 post_meta.html：把「分类 / 标签」补回文章元信息里，
+    这样首页列表、归档页、文章页都能看到这篇属于哪个分类（之前只有日期和阅读时长）。
+*/}}
+{{- $scratch := newScratch }}
+
+{{- with (.GetTerms "categories") -}}
+    {{- range . -}}
+        {{- $scratch.Add "meta" (slice (printf "<a class='meta-cat' href='%s'>%s</a>" .RelPermalink (.LinkTitle | plainify))) }}
+    {{- end -}}
+{{- end -}}
+
+{{- if not .Date.IsZero -}}
+    {{- $scratch.Add "meta" (slice (printf "<span title='%s'>%s</span>" (.Date) (.Date | time.Format (default ":date_long" site.Params.DateFormat)))) }}
+{{- end }}
+
+{{- if (.Param "ShowReadingTime") -}}
+    {{- $scratch.Add "meta" (slice (printf "<span>%s</span>" (i18n "read_time" .ReadingTime | default (printf "%d min" .ReadingTime)))) }}
+{{- end }}
+
+{{- if (.Param "ShowWordCount") -}}
+    {{- $scratch.Add "meta" (slice (printf "<span>%s</span>" (i18n "words" .WordCount | default (printf "%d words" .WordCount)))) }}
+{{- end }}
+
+{{- if not (.Param "hideAuthor") -}}
+    {{- with (partial "author.html" .) }}
+        {{- $scratch.Add "meta" (slice (printf "<span>%s</span>" .)) }}
+    {{- end }}
+{{- end }}
+
+{{- with ($scratch.Get "meta") }}
+    {{- delimit . "&nbsp;·&nbsp;" | safeHTML -}}
+{{- end -}}

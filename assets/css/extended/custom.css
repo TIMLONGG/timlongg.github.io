@@ -61,8 +61,7 @@ select {
     margin: 0;
 }
 
-/* 文章列表：去掉卡片底色/圆角/悬浮动画，改成“细分割线 + 纯文字”的传统博客列表 */
-.post-entry {
+/* 文章列表：去掉卡片底色/圆角/悬浮动画，改成“细分割线 + 纯文字”的传统博客列表 */.post-entry {
     margin-bottom: 0;
     padding: 14px 0;
     background: transparent;
@@ -107,7 +106,392 @@ select {
     margin: 0.9em 0;
 }
 
-/* ---------- 3. 简历页 /cv/ ---------- */
+/* GitHub 风格提示框（> [!NOTE] 等），由 extend_footer.html 里的脚本加类名 */
+.md-content blockquote.alert {
+    margin: 1.2em 0;
+    padding: 10px 14px;
+    color: var(--content);
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--secondary);
+    border-inline-start: 3px solid var(--secondary);
+    border-radius: 6px;
+    font-style: normal;
+}
+
+.md-content blockquote.alert .alert-title {
+    margin-bottom: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.md-content blockquote.alert p {
+    margin: 0.4em 0;
+}
+
+.md-content blockquote.alert p:first-child {
+    margin-top: 0;
+}
+
+.md-content blockquote.alert p:last-child {
+    margin-bottom: 0;
+}
+
+.md-content blockquote.alert-note {
+    border-left-color: #4a7dbd;
+    border-inline-start-color: #4a7dbd;
+}
+
+.md-content blockquote.alert-tip {
+    border-left-color: #3f9c6b;
+    border-inline-start-color: #3f9c6b;
+}
+
+.md-content blockquote.alert-important {
+    border-left-color: #8a6bbf;
+    border-inline-start-color: #8a6bbf;
+}
+
+.md-content blockquote.alert-warning {
+    border-left-color: #d08770;
+    border-inline-start-color: #d08770;
+}
+
+.md-content blockquote.alert-caution {
+    border-left-color: #bf616a;
+    border-inline-start-color: #bf616a;
+}
+
+/* ---------- 3. 博客园式三栏布局：左侧个人信息栏 + 中间正文 + 右侧目录 ---------- */
+:root {
+    --sidebar-width: 236px;
+}
+
+/* 侧栏顶部块：窄屏时就是原来那一行「头像 + 站名 + 深色开关」 */
+.sidebar-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 0 1 auto;
+    min-width: 0;
+}
+
+.sidebar-profile .profile-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.sidebar-profile .profile-avatar img {
+    display: block;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+}
+
+.sidebar-profile .profile-names {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    min-width: 0;
+}
+
+.sidebar-profile .profile-name {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--primary);
+    white-space: nowrap;
+}
+
+/* 窄屏不显示简介、社交图标和分类列表 */
+.sidebar-profile .profile-tagline,
+.sidebar-profile .profile-meta,
+.sidebar-cats {
+    display: none;
+}
+
+.sidebar-profile .theme-toggle {
+    margin-left: auto;
+    padding: 0 4px;
+    color: var(--secondary);
+    background: none;
+    border: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* 仅屏幕阅读器可见（用于 SEO，不占视觉空间） */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* 文章元信息里的分类：小色块 */
+.meta-cat {
+    display: inline-block;
+    padding: 0 7px;
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--primary);
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+}
+
+.meta-cat:hover {
+    color: var(--theme);
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+/* 右侧固定目录：默认隐藏，只在很宽的屏幕上启用（窄屏用正文上方的可折叠目录） */
+.toc-aside {
+    display: none;
+}
+
+/* 宽屏：把 header 变成左侧固定栏 */
+@media (min-width: 1024px) {
+    body {
+        padding-left: var(--sidebar-width);
+    }
+
+    .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: var(--sidebar-width);
+        height: 100vh;
+        background: var(--theme);
+        border-right: 1px solid var(--border);
+        overflow-y: auto;
+    }
+
+    .header-nav {
+        display: block;
+        max-width: none;
+        margin: 0;
+        padding: 26px 20px 32px;
+        line-height: 1.6;
+    }
+
+    .sidebar-profile {
+        position: relative;
+        display: block;
+    }
+
+    .sidebar-profile .profile-head {
+        display: block;
+    }
+
+    .sidebar-profile .profile-avatar img {
+        width: 84px;
+        height: 84px;
+        margin-bottom: 12px;
+    }
+
+    .sidebar-profile .profile-names {
+        display: block;
+    }
+
+    .sidebar-profile .profile-name {
+        font-size: 20px;
+    }
+
+    .sidebar-profile .profile-tagline {
+        display: block;
+        margin-top: 3px;
+        font-size: 13px;
+        color: var(--secondary);
+    }
+
+    .sidebar-profile .theme-toggle {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 2px;
+    }
+
+    .sidebar-profile .profile-meta {
+        display: block;
+        margin-top: 14px;
+    }
+
+    .sidebar-profile .profile-bio {
+        margin: 0;
+        font-size: 13px;
+        line-height: 1.75;
+        color: var(--secondary);
+    }
+
+    .sidebar-profile .profile-social {
+        margin-top: 6px;
+        margin-left: -10px;
+    }
+
+    .sidebar-profile .profile-social a {
+        padding: 10px 8px;
+    }
+
+    .sidebar-profile .profile-social a svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    /* 导航改成纵向列表 */
+    .menu {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1px;
+        margin: 18px 0 0;
+        padding: 0;
+        overflow: visible;
+        white-space: normal;
+    }
+
+    .menu li a {
+        display: block;
+        padding: 7px 9px;
+        border-radius: 6px;
+        font-size: 15px;
+    }
+
+    .menu li a:hover,
+    .menu li a:has(.active) {
+        background: var(--code-bg);
+    }
+
+    .menu li a .active {
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    /* 侧栏分类列表 */
+    .sidebar-cats {
+        display: block;
+        margin-top: 22px;
+        padding-top: 16px;
+        border-top: 1px solid var(--border);
+    }
+
+    .sidebar-cats-head a {
+        display: block;
+        padding: 0 9px 6px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--secondary);
+    }
+
+    .sidebar-cats ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .sidebar-cats li a {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 5px 9px;
+        border-radius: 6px;
+        font-size: 14px;
+        color: var(--primary);
+    }
+
+    .sidebar-cats li a:hover {
+        background: var(--code-bg);
+    }
+
+    .sidebar-cats .cat-count {
+        font-size: 12px;
+        color: var(--secondary);
+    }
+}
+
+/* 超宽屏：正文右侧再挂一列固定目录 */
+@media (min-width: 1150px) {
+    :root {
+        --main-width: 1080px;
+    }
+
+    .toc-inline {
+        display: none;
+    }
+
+    .post-single {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 200px;
+        column-gap: 44px;
+    }
+
+    .post-single > * {
+        grid-column: 1;
+        min-width: 0;
+    }
+
+    .post-single > .toc-aside {
+        display: block;
+        grid-column: 2;
+        grid-row: 1 / span 100;
+        align-self: start;
+        position: sticky;
+        top: 28px;
+        max-height: calc(100vh - 56px);
+        overflow-y: auto;
+    }
+
+    .toc-aside-title {
+        margin-bottom: 8px;
+        padding-left: 12px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--secondary);
+    }
+
+    .toc-aside-nav ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        border-left: 1px solid var(--border);
+    }
+
+    .toc-aside-nav li a {
+        display: block;
+        margin-left: -1px;
+        padding: 4px 0 4px 12px;
+        font-size: 13px;
+        line-height: 1.5;
+        color: var(--secondary);
+        border-left: 2px solid transparent;
+    }
+
+    .toc-aside-nav li a:hover {
+        color: var(--primary);
+        border-left-color: var(--primary);
+    }
+
+    .toc-aside-nav ul ul a {
+        padding-left: 24px;
+        font-size: 12.5px;
+    }
+}
+
+/* ---------- 4. 简历页 /cv/ ---------- */
 .cv-page {
     --cv-label-width: 96px;
 }

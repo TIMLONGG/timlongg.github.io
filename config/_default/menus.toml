@@ -1,5 +1,4 @@
-# 顶部导航（PaperMod 的菜单只显示文字，越少越干净）
-# 搜索框不在菜单里：它渲染在 blog 列表页的最上方
+# 顶部导航（宽屏时显示在左侧栏里，窄屏是顶部横向菜单）
 
 [[main]]
     name   = "归档"
@@ -7,11 +6,16 @@
     weight = 10
 
 [[main]]
+    name   = "分类"
+    url    = "/categories/"
+    weight = 20
+
+[[main]]
     name   = "简历"
     url    = "/cv/"
-    weight = 20
+    weight = 30
 
 [[main]]
     name   = "关于"
     url    = "/about/"
-    weight = 30
+    weight = 40

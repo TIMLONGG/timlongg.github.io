@@ -1,0 +1,103 @@
+{{/*
+    覆盖 PaperMod 的 header.html：
+    - 宽屏（≥1024px）：整个 header 变成左侧固定栏 —— 头像/站名/简介/社交/深色开关 + 纵向导航 + 分类列表
+    - 窄屏：自动退化成原来的顶部一行（头像 + 站名 + 开关 + 横向导航）
+
+    只用了站点自己的 markup，没有改动主题文件；样式见 assets/css/extended/custom.css
+*/}}
+{{- $currentPage := . }}
+<header class="header">
+    <nav class="header-nav">
+        <div class="sidebar-profile">
+            <div class="profile-head">
+                <a class="profile-avatar" href="{{ "" | absLangURL }}" accesskey="h"
+                    title="{{ site.Title }} (Alt + H)">
+                    <img src="{{ "img/avatar.png" | absURL }}" alt="{{ site.Title }}">
+                </a>
+                <div class="profile-names">
+                    <a class="profile-name" href="{{ "" | absLangURL }}">{{ site.Title }}</a>
+                    {{- with site.Params.description }}
+                    <span class="profile-tagline">{{ . }}</span>
+                    {{- end }}
+                </div>
+                {{- if not site.Params.disableThemeToggle }}
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="切换深浅色 (Alt + T)"
+                    aria-label="切换深浅色">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                {{- end }}
+            </div>
+
+            {{- if or site.Params.profileBio site.Params.socialIcons }}
+            <div class="profile-meta">
+                {{- with site.Params.profileBio }}
+                <p class="profile-bio">{{ . | markdownify }}</p>
+                {{- end }}
+                {{- with site.Params.socialIcons }}
+                <div class="profile-social">
+                    {{ partial "social_icons.html" (dict "align" "left") }}
+                </div>
+                {{- end }}
+            </div>
+            {{- end }}
+        </div>
+
+        <ul id="menu" class="menu">
+            {{- range site.Menus.main }}
+            {{- $menu_item_url := (cond (strings.HasSuffix .URL "/") .URL (printf "%s/" .URL)) | absLangURL }}
+            {{- $page_url := $currentPage.Permalink | absLangURL }}
+            <li>
+                <a href="{{ .URL | absLangURL }}" title="{{ .Title | default .Name }}">
+                    <span {{- if eq $menu_item_url $page_url }} class="active" {{- end }}>
+                        {{- .Pre }}{{- .Name -}}{{ .Post -}}
+                    </span>
+                    {{- if (findRE "://" .URL) }}&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                    {{- end }}
+                </a>
+            </li>
+            {{- end }}
+        </ul>
+
+        {{- /* 分类列表：只在大屏侧栏显示，相当于博客园左侧的“分类”栏 */ -}}
+        {{- with site.Taxonomies.categories }}
+        <div class="sidebar-cats">
+            <div class="sidebar-cats-head">
+                <a href="{{ "categories/" | absLangURL }}">分类</a>
+            </div>
+            <ul>
+                {{- range site.Taxonomies.categories.ByCount }}
+                <li>
+                    <a href="{{ .Page.RelPermalink }}">
+                        <span class="cat-name">{{ .Page.LinkTitle }}</span>
+                        <span class="cat-count">{{ .Count }}</span>
+                    </a>
+                </li>
+                {{- end }}
+            </ul>
+        </div>
+        {{- end }}
+    </nav>
+</header>

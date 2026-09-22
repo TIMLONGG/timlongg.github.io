@@ -240,6 +240,8 @@ main.main {
     border-radius: 2px;
     background: #fff;
     font-size: 1.3rem;
+    /* 继承站点字体栈，避免 input 用系统默认字体导致中文字形/间距异常 */
+    font-family: inherit;
 }
 
 .pagination {

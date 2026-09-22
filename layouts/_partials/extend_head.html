@@ -6,10 +6,11 @@
 
 {{- /* ---------- 站内搜索 ---------- */ -}}
 {{- if .IsHome }}
-{{- $fastsearch := resources.Get "js/fastsearch.js" | js.Build (dict "params" (dict "fuseOpts" site.Params.fuseOpts)) | resources.Minify }}
+{{- /* 为 JSON 索引带上本次构建的版本号，避免浏览器保留上一次部署的搜索结果。 */ -}}
+{{- $searchIndexURL := printf "%s?v=%d" (`index.json` | relURL) now.Unix -}}
+{{- $fastsearch := resources.Get "js/fastsearch.js" | js.Build (dict "params" (dict "fuseOpts" site.Params.fuseOpts "searchIndexURL" $searchIndexURL)) | resources.Minify }}
 {{- $fusejs := resources.Get "js/fuse.basic.min.js" }}
 {{- $search := (slice $fusejs $fastsearch) | resources.Concat "assets/js/search.js" | fingerprint }}
-<link crossorigin="anonymous" rel="preload" as="fetch" href="{{ `index.json` | relURL }}">
 <script defer crossorigin="anonymous" src="{{ $search.RelPermalink }}" integrity="{{ $search.Data.Integrity }}"></script>
 {{- end }}
 

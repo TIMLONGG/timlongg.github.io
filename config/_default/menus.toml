@@ -1,21 +1,21 @@
 # 顶部导航（宽屏时显示在左侧栏里，窄屏是顶部横向菜单）
 
 [[main]]
-    name   = "归档"
+    name   = "Archives"
     url    = "/archives/"
     weight = 10
 
 [[main]]
-    name   = "分类"
+    name   = "Categories"
     url    = "/categories/"
     weight = 20
 
 [[main]]
-    name   = "简历"
+    name   = "CV"
     url    = "/cv/"
     weight = 30
 
 [[main]]
-    name   = "关于"
+    name   = "About"
     url    = "/about/"
     weight = 40

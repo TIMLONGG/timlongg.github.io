@@ -7,7 +7,7 @@
 */}}
 {{- $headers := findRE "<h[1-6].*?>(.|\n])+?</h[1-6]>" .Content -}}
 {{- if and (ge (len $headers) 1) .TableOfContents -}}
-{{- $tocTitle := i18n "toc" | default "目录" -}}
+{{- $tocTitle := i18n "toc" | default "Contents" -}}
 
 <details class="toc toc-inline"{{ if (.Param "TocOpen") }} open{{ end }}>
     <summary accesskey="c" title="(Alt + C)">

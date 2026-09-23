@@ -21,8 +21,8 @@
                     {{- end }}
                 </div>
                 {{- if not site.Params.disableThemeToggle }}
-                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="切换深浅色 (Alt + T)"
-                    aria-label="切换深浅色">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="Toggle light/dark (Alt + T)"
+                    aria-label="Toggle light/dark">
                     <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -85,7 +85,7 @@
         {{- with site.Taxonomies.categories }}
         <div class="sidebar-cats">
             <div class="sidebar-cats-head">
-                <a href="{{ "categories/" | absLangURL }}">分类</a>
+                <a href="{{ "categories/" | absLangURL }}">Categories</a>
             </div>
             <ul>
                 {{- range site.Taxonomies.categories.ByCount }}

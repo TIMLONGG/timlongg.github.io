@@ -2,12 +2,12 @@
 # 完整可选项：https://github.com/adityatelange/hugo-PaperMod/blob/master/docs/config.md
 
 env         = "production"
-description = "笔记 · 分享 · 记录"
-keywords    = ["学习笔记", "机器学习", "系统设计", "LaTeX"]
+description = "Notes · Writing · Sharing"
+keywords    = ["study notes", "machine learning", "ML systems", "distributed training", "LaTeX"]
 mainSections = ["post"]
 
 # 左侧个人信息栏里的简介（支持 Markdown）
-profileBio = "记录学习笔记与技术分享，主题集中在机器学习系统、分布式训练与工具链。"
+profileBio = "Study notes and technical write-ups on machine learning systems, distributed training, and tooling."
 
 # 颜色模式：auto（跟随系统）/ light / dark
 defaultTheme        = "light"
@@ -32,7 +32,7 @@ comments                = false     # 需要评论时另配（例如 giscus）
 # 说明：这个字段现在只作为“渲染 home_info 部分”的开关（个人简介已放在左侧栏的 profileBio 里），
 # 具体渲染什么由 layouts/_partials/home_info.html 控制
 [homeInfoParams]
-    Title   = "MLSys·im 实验笔记"
+    Title   = "MLSys·im Experiment Notes"
     Content = ""
 
 [assets]

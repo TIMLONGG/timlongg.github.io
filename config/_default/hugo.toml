@@ -4,11 +4,11 @@
 baseURL = "https://timlongg.github.io/"
 title   = "TIMLONGG"
 
-# 界面语言：zh（对应主题自带的 i18n/zh.yaml，界面文案自动中文）
-defaultContentLanguage = "zh"
-locale                 = "zh-CN"
+# 界面语言：en（对应主题自带的 i18n/en.yaml，界面文案自动英文）
+defaultContentLanguage = "en"
+locale                 = "en-US"
 
-# 中文内容必须开启，否则摘要/字数统计会按空格分词
+# 笔记正文是中文，必须开启，否则摘要/字数统计会按空格分词
 hasCJKLanguage = true
 enableEmoji    = true
 timeZone       = "Asia/Shanghai"

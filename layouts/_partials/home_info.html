@@ -5,11 +5,11 @@
     - PaperMod 会把这个 partial 渲染在文章列表之前，所以搜索框天然位于 blog 页最上方
 */}}
 {{- with site.Params.homeInfoParams }}
-<h1 class="visually-hidden">{{ site.Title }} · 最新文章</h1>
+<h1 class="visually-hidden">{{ site.Title }} · Latest notes</h1>
 {{- end }}
 
 <div id="searchbox" class="searchbox home-search">
-    <input id="searchInput" disabled placeholder="搜索文章：标题 / 关键词 / 正文…" aria-label="搜索" type="search"
+    <input id="searchInput" disabled placeholder="Search notes: title / keyword / body…" aria-label="Search" type="search"
         autocomplete="off" maxlength="64">
-    <ul id="searchResults" class="searchResults" aria-label="搜索结果"></ul>
+    <ul id="searchResults" class="searchResults" aria-label="Search results"></ul>
 </div>

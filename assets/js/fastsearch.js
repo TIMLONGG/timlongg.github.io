@@ -61,7 +61,9 @@ const setActiveResult = (element) => {
     currentElement = element;
 };
 
-const findMatch = (result, keys) => result.matches?.find((match) => keys.includes(match.key));
+// 按传入的 key 顺序优先取匹配：命中正文时优先用 content，而不是先命中到 summary。
+const findMatch = (result, keys) =>
+    keys.map((key) => result.matches?.find((match) => match.key === key)).find(Boolean);
 
 const appendHighlightedText = (element, text, indices = []) => {
     const ranges = [...indices]
@@ -82,20 +84,28 @@ const appendHighlightedText = (element, text, indices = []) => {
     if (cursor < text.length) element.appendChild(document.createTextNode(text.slice(cursor)));
 };
 
+const CONTEXT_LEAD = 52;
+const CONTEXT_LENGTH = 160;
+
 const createContext = (result) => {
     const match = findMatch(result, ['content', 'summary']);
-    if (!match?.indices?.length) return null;
+    const item = result.item;
+    // 命中正文/摘要时围绕命中位置截取；只命中标题或链接时退化为正文开头，
+    // 保证每条搜索结果都有一行可读上下文，而不是只剩标题。
+    const source = String((match ? item[match.key] : '') || item.content || item.summary || '');
+    if (!source) return null;
 
-    const source = String(result.item[match.key] ?? '');
-    const [matchStart, matchEnd] = match.indices[0];
-    const start = Math.max(0, matchStart - 52);
-    const end = Math.min(source.length, matchEnd + 1 + 108);
+    const indices = match?.indices ?? [];
+    const [matchStart] = indices[0] ?? [0];
+    const start = Math.max(0, matchStart - CONTEXT_LEAD);
+    const end = Math.min(source.length, start + CONTEXT_LEAD + CONTEXT_LENGTH);
+
     const context = document.createElement('span');
     context.className = 'search-result-context';
     context.setAttribute('aria-label', '正文匹配上下文');
 
     if (start > 0) context.appendChild(document.createTextNode('…'));
-    const clippedIndices = match.indices
+    const clippedIndices = indices
         .filter(([left, right]) => right >= start && left < end)
         .map(([left, right]) => [Math.max(left, start) - start, Math.min(right, end - 1) - start]);
     appendHighlightedText(context, source.slice(start, end), clippedIndices);

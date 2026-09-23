@@ -1,12 +1,18 @@
 {{- /*
     站内搜索索引：只收录博客笔记（mainSections = ["post"]）。
     简历、关于、归档等独立页面不应作为文章搜索结果出现。
+    summary 用 plainify 去掉标签，否则命中摘要时搜索结果会把 <blockquote>、<a href> 之类的
+    原始 HTML 当成正文上下文显示出来。
 */ -}}
 {{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections -}}
 {{- $index := slice -}}
 {{- range $pages -}}
     {{- if and (not .Params.searchHidden) (ne .Layout `archives`) (ne .Layout `search`) -}}
-        {{- $index = $index | append (dict "title" .Title "content" .Plain "permalink" .Permalink "summary" .Summary) -}}
+        {{- $index = $index | append (dict
+            "title" .Title
+            "content" .Plain
+            "permalink" .Permalink
+            "summary" (.Summary | plainify)) -}}
     {{- end -}}
 {{- end -}}
 {{- $index | jsonify -}}

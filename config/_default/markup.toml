@@ -13,9 +13,10 @@
         block  = [['\[', '\]'], ['$$', '$$']]
         inline = [['$', '$'], ['\(', '\)']]
 
+# 目录（TOC）：2~4 级标题，不使用 1./2./3. 编号（ordered=false，输出 <ul>）
 [tableOfContents]
     endLevel   = 4
-    ordered    = true
+    ordered    = false
     startLevel = 2
 
 [highlight]

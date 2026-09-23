@@ -3,10 +3,11 @@
     放置位置是官方约定的 assets/css/extended/*.css，会被自动合并进站点样式，
     因此不需要修改主题里的任何文件（升级主题时不会冲突）。
 
-    包含三部分：
+    包含四部分：
     1) 中文优先字体栈（不依赖 Google Fonts）
-    2) 首页顶部（标题 + 简介 + 搜索框）的紧凑排版
-    3) 简历页 /cv/ 的学术风格样式 + 打印样式
+    2) 全站细滚动条
+    3) 首页、三栏布局与文章目录（TOC）的排版
+    4) 简历页 /cv/ 的学术风格样式 + 打印样式
 */
 
 /* ---------- 1. 字体：中文优先 ---------- */
@@ -20,7 +21,41 @@ select {
         sans-serif;
 }
 
-/* ---------- 2. 首页顶部：标题 / 简介 / 搜索框 ---------- */
+/* ---------- 2. 滚动条：细线 + 透明轨道（整页 / 侧栏统一） ---------- */
+:root {
+    --scrollbar-thumb: rgb(0 0 0 / 16%);
+    --scrollbar-thumb-hover: rgb(0 0 0 / 34%);
+}
+
+:root[data-theme="dark"] {
+    --scrollbar-thumb: rgb(255 255 255 / 16%);
+    --scrollbar-thumb-hover: rgb(255 255 255 / 34%);
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb);
+    border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scrollbar-thumb-hover);
+}
+
+/* ---------- 3. 首页顶部：标题 / 简介 / 搜索框 ---------- */
 /* 取消 PaperMod 给首屏大卡片预留的高度和间距，让它变成一行朴素的站点简介 */
 .home-info {
     min-height: auto;
@@ -135,13 +170,58 @@ select {
     border-radius: 0;
 }
 
-/* 正文段落稍微收紧一点，阅读密度更接近传统技术博客 */
+/* 正文：字号比主题默认（18px）小一点，行距略收紧，阅读密度更高 */
 .post-content {
-    line-height: 1.78;
+    font-size: 16.5px;
+    line-height: 1.75;
+}
+
+/* KaTeX 默认 1.21em（相对于正文）偏大，缩到接近正文字号 */
+.post-content .katex {
+    font-size: 1.06em;
+}
+
+/*
+    过宽的块级公式不再溢出到右侧目录：
+    - overflow-x 让公式在自己的容器里横向滚动；
+    - width:max-content + min-width:100% 保证放得下时居中、放不下时从左侧开始，
+      否则 text-align:center 会把公式左半边裁到滚动区外面。
+*/
+.post-content .katex-display {
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    padding: 2px 0;
+}
+
+.post-content .katex-display > .katex {
+    display: block;
+    width: max-content;
+    min-width: 100%;
+    margin: 0 auto;
 }
 
 .post-content p {
     margin: 0.9em 0;
+}
+
+/*
+    分类 / 标签 / 列表页头部的 description 里的链接：
+    主题只给 .md-content a 加了下划线，.post-description 里的 <a> 会被漏掉，
+    结果和周围文字同色、无下划线，看不出能点。这里补上与正文一致的链接样式。
+*/
+.post-description a {
+    color: var(--primary);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-decoration-color: var(--secondary);
+    text-underline-offset: 0.3rem;
+    transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.post-description a:hover {
+    text-decoration-color: var(--primary);
 }
 
 /* GitHub 风格提示框（> [!NOTE] 等），由 extend_footer.html 里的脚本加类名 */
@@ -201,7 +281,7 @@ select {
     border-inline-start-color: #bf616a;
 }
 
-/* ---------- 3. 博客园式三栏布局：左侧个人信息栏 + 中间正文 + 右侧目录 ---------- */
+/* ---------- 4. 博客园式三栏布局：左侧个人信息栏 + 中间正文 + 右侧目录 ---------- */
 :root {
     --sidebar-width: 236px;
     --rail-gap: 16px;
@@ -376,6 +456,32 @@ select {
 /* 右侧固定目录：默认隐藏，只在很宽的屏幕上启用（窄屏用正文上方的可折叠目录） */
 .toc-aside {
     display: none;
+}
+
+/* 正文上方的可折叠目录（窄屏）：紧凑、无编号、层级缩进明显 */
+.toc-inline .inner :is(ul, ol) {
+    margin: 0;
+    padding-left: 1.4em;
+    list-style: none;
+}
+
+.toc-inline .inner li {
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.toc-inline .inner li a {
+    color: var(--secondary);
+}
+
+/* 一级条目更深、更重，和子级拉开层次 */
+.toc-inline .inner > nav > ul > li > a {
+    font-weight: 500;
+    color: var(--primary);
+}
+
+.toc-inline .inner li a:hover {
+    color: var(--primary);
 }
 
 /* 宽屏：把 header 变成左侧固定栏 */
@@ -565,6 +671,18 @@ select {
         min-width: 0;
     }
 
+    /*
+        主题给 .post-header 写了 `margin: 24px auto …`。在 grid 里，
+        margin:auto 会让头部不再撑满列，而是按内容宽度收缩并居中：
+        有 description 时被长文本撑满看不出来，一旦没有 description，
+        标题就会缩到自身宽度并向右偏，和正文左边缘对不齐。
+        这里去掉左右 auto，让头部始终占满正文列。
+    */
+    .post-single > .post-header {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
     .post-single > .toc-aside {
         display: block;
         grid-column: 2;
@@ -574,6 +692,9 @@ select {
         top: 28px;
         max-height: calc(100vh - 56px);
         overflow-y: auto;
+        /* 给细滚动条留出位置，避免压住目录文字 */
+        padding-right: 8px;
+        overscroll-behavior: contain;
     }
 
     /* 简历没有文章目录，改为使用完整主栏，避免留下空的右侧轨道。 */
@@ -582,30 +703,41 @@ select {
     }
 
     .toc-aside-title {
-        margin-bottom: 8px;
+        margin-bottom: 10px;
         padding-left: 12px;
-        font-size: 12px;
+        font-size: 11px;
         font-weight: 600;
-        letter-spacing: 0.08em;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
         color: var(--secondary);
     }
 
-    .toc-aside-nav ul {
+    /* 目录本体：去掉所有编号/项目符号，只留一条细导轨 + 层级缩进 */
+    .toc-aside-nav {
+        border-left: 1px solid var(--border);
+    }
+
+    .toc-aside-nav :is(ul, ol) {
         margin: 0;
         padding: 0;
         list-style: none;
-        border-left: 1px solid var(--border);
     }
 
     .toc-aside-nav li a {
         display: block;
         margin-left: -1px;
-        padding: 4px 0 4px 12px;
-        font-size: 13px;
-        line-height: 1.5;
+        padding: 3px 0 3px 11px;
+        font-size: 12px;
+        line-height: 1.45;
         color: var(--secondary);
         border-left: 2px solid transparent;
+        transition: color 0.15s ease, border-color 0.15s ease;
+    }
+
+    /* 一级条目更深、更重，和子级拉开层次 */
+    .toc-aside-nav > nav > ul > li > a {
+        font-weight: 500;
+        color: var(--primary);
     }
 
     .toc-aside-nav li a:hover {
@@ -613,9 +745,15 @@ select {
         border-left-color: var(--primary);
     }
 
-    .toc-aside-nav ul ul a {
-        padding-left: 24px;
-        font-size: 12.5px;
+    /* 每加深一层：缩进 +15px、字号再小 0.5px */
+    .toc-aside-nav :is(ul, ol) :is(ul, ol) a {
+        padding-left: 26px;
+        font-size: 11.5px;
+    }
+
+    .toc-aside-nav :is(ul, ol) :is(ul, ol) :is(ul, ol) a {
+        padding-left: 41px;
+        font-size: 11px;
     }
 }
 
@@ -665,7 +803,7 @@ select {
     }
 }
 
-/* ---------- 4. 简历页 /cv/ ---------- */
+/* ---------- 5. 简历页 /cv/ ---------- */
 .cv-page {
     --cv-label-width: 96px;
 }

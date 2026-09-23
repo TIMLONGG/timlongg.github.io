@@ -3,6 +3,7 @@
     简历、关于、归档等独立页面不应作为文章搜索结果出现。
     summary 用 plainify 去掉标签，否则命中摘要时搜索结果会把 <blockquote>、<a href> 之类的
     原始 HTML 当成正文上下文显示出来。
+    另外把 tags / categories 也写进索引，这样可以直接按标签、分类搜索。
 */ -}}
 {{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections -}}
 {{- $index := slice -}}
@@ -12,7 +13,9 @@
             "title" .Title
             "content" .Plain
             "permalink" .Permalink
-            "summary" (.Summary | plainify)) -}}
+            "summary" (.Summary | plainify)
+            "tags" (delimit (.Params.tags | default (slice)) " ")
+            "categories" (delimit (.Params.categories | default (slice)) " ")) -}}
     {{- end -}}
 {{- end -}}
 {{- $index | jsonify -}}

@@ -36,7 +36,11 @@ comments                = false     # 需要评论时另配（例如 giscus）
     Content = ""
 
 [assets]
-    favicon = "/img/favicon.png"
+    favicon          = "/img/favicon.png"
+    favicon16x16     = "/img/favicon-16x16.png"
+    favicon32x32     = "/img/favicon-32x32.png"
+    apple_touch_icon = "/img/apple-touch-icon.png"
+    safari_pinned_tab = "/img/safari-pinned-tab.svg"
 # 站内搜索（Fuse.js，索引来自 /index.json）
 [fuseOpts]
     iscasesensitive   = false
@@ -46,7 +50,7 @@ comments                = false     # 需要评论时另配（例如 giscus）
     threshold         = 0.4
     minmatchcharlength = 1
     limit             = 10
-    keys              = ["title", "permalink", "summary", "content"]
+    keys              = ["title", "permalink", "summary", "content", "tags", "categories"]
 
 [[socialIcons]]
     name  = "github"

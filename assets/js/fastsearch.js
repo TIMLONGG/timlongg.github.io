@@ -86,11 +86,12 @@ const appendHighlightedText = (element, text, indices = []) => {
 
 const CONTEXT_LEAD = 52;
 const CONTEXT_LENGTH = 160;
+const CONTEXT_LABELS = { tags: 'Tags', categories: 'Category' };
 
 const createContext = (result) => {
-    const match = findMatch(result, ['content', 'summary']);
+    const match = findMatch(result, ['content', 'summary', 'tags', 'categories']);
     const item = result.item;
-    // 命中正文/摘要时围绕命中位置截取；只命中标题或链接时退化为正文开头，
+    // 命中正文/摘要时围绕命中位置截取；只命中标题/标签或链接时退化为正文开头，
     // 保证每条搜索结果都有一行可读上下文，而不是只剩标题。
     const source = String((match ? item[match.key] : '') || item.content || item.summary || '');
     if (!source) return null;
@@ -102,7 +103,11 @@ const createContext = (result) => {
 
     const context = document.createElement('span');
     context.className = 'search-result-context';
-    context.setAttribute('aria-label', '正文匹配上下文');
+    context.setAttribute('aria-label', 'Match context');
+
+    // 命中标签/分类时加个前缀，说明这段文字来自哪里。
+    const label = CONTEXT_LABELS[match?.key];
+    if (label) context.appendChild(document.createTextNode(label + ': '));
 
     if (start > 0) context.appendChild(document.createTextNode('…'));
     const clippedIndices = indices

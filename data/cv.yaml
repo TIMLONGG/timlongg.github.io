@@ -44,12 +44,14 @@ sections:
 
   - title: Publications
     items:
-      - title: Adaptive Dual Cross-Attention Network for Multispectral Object Detection in Autonomous Driving
-        subtitle: Expert Systems With Applications (ESWA), 2026 · Student First Author
+      - journal: Expert Systems With Applications (ESWA)
+        date: 2026
         badge: SCI Q1 · IF 9.4
-      - title: Multi-Variety Rice Yield Prediction from Heterogeneous UAV Time-Series Data via a Cross-Period Attention Transformer
-        subtitle: Journal of Integrative Agriculture (JIA), 2026 · Second Author
+        subtitle: Student First Author
+      - journal: Journal of Integrative Agriculture (JIA)
+        date: 2026
         badge: SCI Q1 · IF 5.7
+        subtitle: Second Author
 
 skillsTitle: Technical Skills
 skills:

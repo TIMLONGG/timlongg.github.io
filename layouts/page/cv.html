@@ -26,12 +26,19 @@
         <h2 class="cv-section-title">{{ .title }}</h2>
         {{- range .items }}
         <div class="cv-item">
+            {{- if .journal }}
+            <div class="cv-item-head">
+                <span class="cv-item-journal"><em>{{ .journal }}</em>{{- with .date }}, {{ . }}{{ end }}{{- with .badge }} · {{ . }}{{ end }}</span>
+            </div>
+            {{- with .subtitle }}<div class="cv-item-subtitle">{{ . }}</div>{{ end }}
+            {{- else }}
             <div class="cv-item-head">
                 <span class="cv-item-title">{{ .title }}</span>
                 {{- with .date }}<span class="cv-item-date">{{ . }}</span>{{ end }}
             </div>
             {{- with .badge }}<div class="cv-item-badge">{{ . }}</div>{{ end }}
             {{- with .subtitle }}<div class="cv-item-subtitle">{{ . }}</div>{{ end }}
+            {{- end }}
             {{- with .details }}
             <ul class="cv-item-details">
                 {{- range . }}<li>{{ . | markdownify }}</li>{{ end }}

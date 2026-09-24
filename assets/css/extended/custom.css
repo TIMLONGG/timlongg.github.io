@@ -899,7 +899,8 @@ select {
     margin: 0 0 14px;
     padding-bottom: 6px;
     font-size: 14px;
-    font-weight: 600;
+    font-style: italic;
+    font-weight: 400;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--primary);
@@ -918,9 +919,17 @@ select {
     gap: 4px 12px;
 }
 
+/* 学校 / 学位 / 项目名：用斜体代替加粗，排版更学术 */
 .cv-page .cv-item-title {
     font-size: 16px;
-    font-weight: 600;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--primary);
+}
+
+/* 论文条目：期刊名用斜体（学术写法），不加粗 */
+.cv-page .cv-item-journal {
+    font-size: 16px;
     color: var(--primary);
 }
 
@@ -936,11 +945,12 @@ select {
     color: var(--secondary);
 }
 
-/* 期刊分区与影响因子采用独立的强调行，而不是与正文混在一起。 */
+/* 期刊分区与影响因子 */
 .cv-page .cv-item-badge {
     margin-top: 4px;
     font-size: 13px;
-    font-weight: 700;
+    font-style: italic;
+    font-weight: 400;
     letter-spacing: 0.04em;
     color: var(--primary);
 }
@@ -990,7 +1000,8 @@ select {
 .cv-page .cv-skill-label {
     min-width: var(--cv-label-width);
     font-size: 14px;
-    font-weight: 600;
+    font-style: italic;
+    font-weight: 400;
     color: var(--primary);
 }
 

@@ -18,8 +18,3 @@ This site is where I keep my **study notes, technical write-ups, and occasional 
 ## Contact
 
 - GitHub: [@TIMLONGG](https://github.com/TIMLONGG)
-- Email: `timlongg@example.com` (replace with your real address)
-- RSS: [Subscribe](/index.xml)
-
-> [!NOTE]
-> This page lives at `content/page/about/index.md` — just edit it directly. To add an avatar, drop an image into `content/page/about/` and write `![avatar](avatar.png)`.

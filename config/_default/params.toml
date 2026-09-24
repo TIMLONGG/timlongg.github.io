@@ -2,12 +2,12 @@
 # 完整可选项：https://github.com/adityatelange/hugo-PaperMod/blob/master/docs/config.md
 
 env         = "production"
-description = "Notes · Writing · Sharing"
-keywords    = ["study notes", "machine learning", "ML systems", "distributed training", "LaTeX"]
+description = ""
+keywords    = ["study notes", "machine learning", "ML systems", "distributed training", "LLM", "Agent"]
 mainSections = ["post"]
 
 # 左侧个人信息栏里的简介（支持 Markdown）
-profileBio = "Study notes and technical write-ups on machine learning systems, distributed training, and tooling."
+profileBio = "Learning notes on LLM, MLsys, and Agent."
 
 # 颜色模式：auto（跟随系统）/ light / dark
 defaultTheme        = "light"
@@ -56,8 +56,3 @@ comments                = false     # 需要评论时另配（例如 giscus）
     name  = "github"
     title = "GitHub"
     url   = "https://github.com/TIMLONGG"
-
-[[socialIcons]]
-    name  = "rss"
-    title = "RSS"
-    url   = "/index.xml"

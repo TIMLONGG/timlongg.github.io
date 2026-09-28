@@ -804,12 +804,9 @@ select {
     }
 }
 
-/* 页脚访问计数（Busuanzi） */
+/* 页脚访问计数（Busuanzi）：移动进 .footer 内，和版权行同一行 */
 .footer-views {
-    margin-top: 6px;
-    font-size: 13px;
-    color: var(--secondary);
-    text-align: center;
+    color: inherit;
 }
 
 .footer-views[hidden] {

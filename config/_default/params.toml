@@ -10,7 +10,7 @@ mainSections = ["post"]
 profileBio = "Learning notes on LLM, MLsys, and Agent."
 
 # 颜色模式：auto（跟随系统）/ light / dark
-defaultTheme        = "light"
+defaultTheme        = "auto"
 disableThemeToggle  = false
 
 # 文章页元素

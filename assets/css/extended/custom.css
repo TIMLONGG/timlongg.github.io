@@ -804,6 +804,23 @@ select {
     }
 }
 
+/* 页脚访问计数（Busuanzi） */
+.footer-views {
+    margin-top: 6px;
+    font-size: 13px;
+    color: var(--secondary);
+    text-align: center;
+}
+
+.footer-views[hidden] {
+    display: none;
+}
+
+.footer-views-sep {
+    padding: 0 6px;
+    color: var(--tertiary);
+}
+
 /* ---------- 5. 简历页 /cv/ ---------- */
 .cv-page {
     --cv-label-width: 96px;

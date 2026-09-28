@@ -34,3 +34,45 @@
         });
     })();
 </script>
+
+{{/*
+    页脚访问计数（Busuanzi / 不蒜子，免费、无需注册）。
+    - 本地预览（hugo server）不统计，因为 Busuanzi 按域名计数，localhost 是全网共享的大数字。
+    - 脚本加载成功并填充数字后才显示，避免服务不可用时出现「 views」这种空数字。
+    - 统计全站数据：site_pv = 总访问量（人次），site_uv = 独立访客数。
+*/}}
+<div class="footer-views" hidden>
+    <span><span id="busuanzi_value_site_pv">0</span> views</span>
+    <span class="footer-views-sep">·</span>
+    <span><span id="busuanzi_value_site_uv">0</span> visitors</span>
+</div>
+<script>
+    (function () {
+        var box = document.querySelector(".footer-views");
+        var pv = document.getElementById("busuanzi_value_site_pv");
+        if (!box || !pv) return;
+
+        // 本地开发不统计（localhost / 127.0.0.1 / ::1）
+        if (/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)) return;
+
+        var reveal = function () {
+            if (pv.textContent.trim() && pv.textContent.trim() !== "0") {
+                box.hidden = false;
+                return true;
+            }
+            return false;
+        };
+
+        var observer = new MutationObserver(function () {
+            if (reveal()) observer.disconnect();
+        });
+        observer.observe(pv, { childList: true, characterData: true, subtree: true });
+        // 服务不可用就别一直空转，10s 后放弃（容器保持隐藏）
+        window.setTimeout(function () { observer.disconnect(); }, 10000);
+
+        var script = document.createElement("script");
+        script.async = true;
+        script.src = "https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
+        document.body.appendChild(script);
+    })();
+</script>

@@ -2,18 +2,12 @@
 title: About
 slug: about
 searchHidden: true
-description: A short introduction to me and to what this site is about.
+description:
 ---
 
-Hi, I'm **TIMLONGG** 👋
+I'm **TIMLONGG**, a graduate student in computer science interested in **large language models (LLMs)** and **AI infrastructure**.
 
-This site is where I keep my **study notes, technical write-ups, and occasional thoughts**.
-
-## What I write about
-
-- **Study notes**: coursework, papers, and textbooks — with the math and derivations written out in full;
-- **Tools & setup**: environments, toolchains, and productivity tips;
-- **Notes to self**: ideas worth keeping.
+This website is where I keep my study notes.
 
 ## Contact
 

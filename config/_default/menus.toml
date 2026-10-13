@@ -10,12 +10,14 @@
     url    = "/categories/"
     weight = 20
 
-[[main]]
-    name   = "CV"
-    url    = "/cv/"
-    weight = 30
+# CV 入口暂时下线（页面本身保留在 content/page/cv/，
+# 需要恢复时把下面这段 [[main]] 取消注释即可）
+# [[main]]
+#     name   = "CV"
+#     url    = "/cv/"
+#     weight = 30
 
 [[main]]
     name   = "About"
     url    = "/about/"
-    weight = 40
+    weight = 30

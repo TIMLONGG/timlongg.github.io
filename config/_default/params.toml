@@ -3,11 +3,11 @@
 
 env         = "production"
 description = ""
-keywords    = ["study notes", "machine learning", "ML systems", "distributed training", "LLM", "Agent"]
+keywords    = ["study notes", "machine learning", "AI Infra", "distributed", "LLM"]
 mainSections = ["post"]
 
 # 左侧个人信息栏里的简介（支持 Markdown）
-profileBio = "Learning notes on LLM, MLsys, and Agent."
+profileBio = "LLM | AI Infra"
 
 # 颜色模式：auto（跟随系统）/ light / dark
 defaultTheme        = "auto"

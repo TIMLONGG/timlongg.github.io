@@ -206,6 +206,14 @@ select {
     margin: 0.9em 0;
 }
 
+/* 正文图片自动居中，保留指定宽度并适应窄屏。 */
+.post-content img {
+    display: block;
+    margin-inline: auto;
+    max-width: 100%;
+    height: auto;
+}
+
 /*
     分类 / 标签 / 列表页头部的 description 里的链接：
     主题只给 .md-content a 加了下划线，.post-description 里的 <a> 会被漏掉，

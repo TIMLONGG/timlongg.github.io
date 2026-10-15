@@ -7,14 +7,12 @@ categories:
 math: true
 ---
 
-## CUDA 执行模型（Execution Model）
-
 > cs336 Lecture 5 slide paged 11
 
 <img src="Pasted image 20261013145417.png" alt="Pasted image 20261013145417.png">
 
 
-### 最重要的三个组件：
+## 最重要的三个组件：
 
 Thread （线程）：真正干活的搬运工。线程是GPU执行的最小单位。  
 特点：（SIMT，单指令多输入）。所有的线程在同一时刻执行相同的指令，但是它们处理的数据是不同的。这是一种数据并行的模式。
@@ -25,9 +23,9 @@ Blocks（线程块）：若干个线程组成一个Block。
 Warp（线程束）：硬件调度的最小单位。这是GPU硬件架构的关键。硬件并非一个一个去调度线程，而是把32个连续编号的线程打包成一组，称为一个Warp。  
 特点：Warp是GPU执行指令的基本单位。如果一个Warp里的32个线程都执行同一条指令，效率最高。
 
-### 任务分配过程
+## 任务分配过程
 
-#### Grid -> Block -> SM
+### Grid -> Block -> SM
 <img src="Pasted image 20261013150419.png" alt="Pasted image 20261013150419.png" width="478">
 
 
@@ -36,14 +34,14 @@ Warp（线程束）：硬件调度的最小单位。这是GPU硬件架构的关�
 - 一个SM可以同时运行多个Block。
 - 一个Block只能在一个SM上运行。
 
-#### Block -> Warp
+### Block -> Warp
 <img src="Pasted image 20261013151033.png" alt="Pasted image 20261013151033.png" width="323">
 
 
 黄色框展示了$Block_i$的内部结构。一个Block里面有256个线程，硬件将256个线程每32个一组，切分成8个Wrap。每个Warp里有32个线程。
 
 
-#### Warp -> Scheduler -> Core
+### Warp -> Scheduler -> Core
 <img src="Pasted image 20261013151850.png" alt="Pasted image 20261013151850.png" width="452">
 
 最右侧绿色部分是SM内部的执行细节。粉色框表示Warp Scheduler（线程束调度器），SM里面有4个调度器。  
@@ -52,7 +50,7 @@ Warp（线程束）：硬件调度的最小单位。这是GPU硬件架构的关�
 - 图中“Warp 1 instruction 10”，意思是调度器正在把Warp 1的第10条指令发出去执行。
 - 32个线程同时在这个单元阵列里进行运算。
 
-####  总结
+###  总结
 
 <img src="Pasted image 20261013155218.png" alt="Pasted image 20261013155218.png">
 

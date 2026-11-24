@@ -63,9 +63,26 @@
             {{- range site.Menus.main }}
             {{- $menu_item_url := (cond (strings.HasSuffix .URL "/") .URL (printf "%s/" .URL)) | absLangURL }}
             {{- $page_url := $currentPage.Permalink | absLangURL }}
+            {{- $is_active := eq $menu_item_url $page_url }}
+            {{- $lower := lower .Name }}
             <li>
-                <a href="{{ .URL | absLangURL }}" title="{{ .Title | default .Name }}">
-                    <span {{- if eq $menu_item_url $page_url }} class="active" {{- end }}>
+                <a href="{{ .URL | absLangURL }}" title="{{ .Title | default .Name }}"{{- if $is_active }} class="is-active" aria-current="page"{{- end }}>
+                    <span class="menu-icon" aria-hidden="true">
+                        {{- if eq $lower "home" }}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"></path><path d="M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5"></path></svg>
+                        {{- else if eq $lower "archives" }}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"></polyline><rect x="1" y="3" width="22" height="5" rx="1"></rect><line x1="10" y1="12" x2="14" y2="12"></line></svg>
+                        {{- else if eq $lower "categories" }}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                        {{- else if eq $lower "cv" }}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                        {{- else if eq $lower "about" }}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        {{- else }}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle></svg>
+                        {{- end }}
+                    </span>
+                    <span {{- if $is_active }} class="active" {{- end }}>
                         {{- .Pre }}{{- .Name -}}{{ .Post -}}
                     </span>
                     {{- if (findRE "://" .URL) }}&nbsp;
@@ -89,8 +106,9 @@
             </div>
             <ul>
                 {{- range site.Taxonomies.categories.ByCount }}
+                {{- $cat_active := eq $currentPage.RelPermalink .Page.RelPermalink }}
                 <li>
-                    <a href="{{ .Page.RelPermalink }}">
+                    <a href="{{ .Page.RelPermalink }}"{{- if $cat_active }} class="is-active" aria-current="page"{{- end }}>
                         <span class="cat-name">{{ .Page.LinkTitle }}</span>
                         <span class="cat-count">{{ .Count }}</span>
                     </a>

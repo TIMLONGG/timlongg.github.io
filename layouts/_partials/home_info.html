@@ -8,8 +8,25 @@
 <h1 class="visually-hidden">{{ site.Title }} · Latest notes</h1>
 {{- end }}
 
+{{- $notes := where site.RegularPages "Type" "in" site.Params.mainSections }}
+{{- $notes = where $notes "Params.hiddenInHomeList" "!=" "true" }}
+
 <div id="searchbox" class="searchbox home-search">
-    <input id="searchInput" disabled placeholder="Search notes: title / keyword / body…" aria-label="Search" type="search"
-        autocomplete="off" maxlength="64">
+    <div class="search-input-wrap">
+        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            aria-hidden="true">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input id="searchInput" disabled placeholder="Search notes by title, keyword, or body…" aria-label="Search" type="search"
+            autocomplete="off" maxlength="64">
+        <kbd class="search-kbd" aria-hidden="true">/</kbd>
+    </div>
     <ul id="searchResults" class="searchResults" aria-label="Search results"></ul>
+</div>
+
+<div class="home-section-head">
+    <span class="home-section-title">Latest Notes</span>
+    <span class="home-section-count">{{ len $notes }} {{ if eq (len $notes) 1 }}entry{{ else }}entries{{ end }}</span>
 </div>

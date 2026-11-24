@@ -43,13 +43,17 @@ const debounce = (fn, delay) => {
     };
 };
 
-const reset = () => {
+const reset = (keepFocus = true) => {
     currentElement = null;
     firstResult = null;
     lastResult = null;
     resList.innerHTML = '';
     sInput.value = '';
-    sInput.focus();
+    if (keepFocus) {
+        sInput.focus();
+    } else {
+        sInput.blur();
+    }
 };
 
 const setActiveResult = (element) => {
@@ -183,7 +187,6 @@ const initSearch = async () => {
     if (!sInput || !resList) return;
 
     sInput.disabled = false;
-    sInput.focus();
 
     try {
         const response = await fetch(params.searchIndexURL ?? '../index.json', { cache: 'no-store' });
@@ -199,16 +202,38 @@ const initSearch = async () => {
 window.addEventListener('load', initSearch);
 sInput?.addEventListener('input', debounce(performSearch, 150));
 sInput?.addEventListener('search', () => {
-    if (!sInput.value) reset();
+    if (!sInput.value) reset(true);
 });
 
 document.addEventListener('keydown', (event) => {
     const { key } = event;
     const active = document.activeElement;
     const isInSearchBox = searchBox?.contains(active);
+    const isTypingField =
+        active &&
+        (active.tagName === 'INPUT' ||
+            active.tagName === 'TEXTAREA' ||
+            active.isContentEditable);
 
-    if (key === 'Escape') {
-        reset();
+    if (key === '/' && !isTypingField && !event.metaKey && !event.ctrlKey && !event.altKey) {
+        if (sInput && !sInput.disabled) {
+            event.preventDefault();
+            sInput.focus();
+            const blockSlash = (inputEvent) => {
+                if (inputEvent.data === '/') inputEvent.preventDefault();
+            };
+            sInput.addEventListener('beforeinput', blockSlash, { once: true });
+            window.setTimeout(() => sInput.removeEventListener('beforeinput', blockSlash), 80);
+        }
+        return;
+    }
+
+    if (key === 'Escape' && isInSearchBox) {
+        if (sInput.value) {
+            reset(true);
+        } else {
+            reset(false);
+        }
         return;
     }
     if (!firstResult || !isInSearchBox) return;

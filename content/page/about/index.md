@@ -2,6 +2,8 @@
 title: About
 slug: about
 searchHidden: true
+hideMeta: true
+ShowToc: false
 description:
 ---
 

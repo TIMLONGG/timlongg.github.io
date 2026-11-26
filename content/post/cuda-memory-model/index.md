@@ -1,9 +1,9 @@
 ---
-title: "[GPU硬件]  GPU 内存模型（Memory Model）"
+title: "[CUDA]  GPU 内存模型（Memory Model）"
 slug: cuda-memory-model
 date: 2026-10-15T00:00:00+08:00
 categories:
-    - GPU硬件
+    - CUDA
 ---
 
 > cs336 Lecture 5 slide paged 12

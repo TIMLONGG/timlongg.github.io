@@ -1,9 +1,9 @@
 ---
-title: "[GPU硬件]  CUDA 执行模型（Execution Model）"
+title: "[CUDA]  CUDA 执行模型（Execution Model）"
 slug: cuda-execution-model
 date: 2026-10-13T15:52:18+08:00
 categories:
-    - GPU硬件
+    - CUDA
 math: true
 ---
 
